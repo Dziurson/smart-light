@@ -39,7 +39,7 @@ export class DrawingComponent implements OnInit {
       prevLamp = lamp;
     })
     this.smartLightModel.lampList.forEach((lamp: any) => {
-      this.drawRing(this.context, lamp.posX, lamp.posY, 20, lamp.power * 2);
+      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.power * 2);
     })    
   }
 
@@ -65,7 +65,7 @@ export class DrawingComponent implements OnInit {
   }
 
   drawRing(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, scale: number, innerColor: string = 'rgba(0,0,0,0.5)', outerColor: string = 'rgba(255,255,0,0.5)') {
-    this.drawCircle(context, posX, posY, radius * scale, outerColor)
+    this.drawCircle(context, posX, posY, radius * 4 * scale, outerColor)
     this.drawCircle(context, posX, posY, radius, innerColor)
   }
 

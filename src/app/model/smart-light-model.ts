@@ -10,9 +10,16 @@ export default class SmartLightModel {
     constructor() { }
 
     setTestLamps() {
-        this.lampList.push({ id: 1, power: 1, posX: 50, posY: 50, place: PlaceType.NormalTraffic });
-        this.lampList.push({ id: 2, power: 1, posX: 50, posY: 250, place: PlaceType.DangerousPlaces });
-        this.lampList.push({ id: 3, power: 1, posX: 250, posY: 250, place: PlaceType.Parks });
+        this.lampList.push({ id: 1, power: 1, posX: 1100, posY: 200, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 2, power: 1.25, posX: 900, posY: 200, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 3, power: 0.75, posX: 700, posY: 200, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 4, power: 0.25, posX: 500, posY: 200, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 5, power: 0.5, posX: 300, posY: 200, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 6, power: 1, posX: 300, posY: 500, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 7, power: 1, posX: 500, posY: 500, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 8, power: 1, posX: 700, posY: 500, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 9, power: 1, posX: 900, posY: 500, place: PlaceType.NormalTraffic })
+        this.lampList.push({ id: 10, power: 1, posX: 1100, posY: 500, place: PlaceType.NormalTraffic })
     }
 
     setTestMovingObjects() {
