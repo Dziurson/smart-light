@@ -2,12 +2,17 @@ import { PlaceType } from './place-type';
 
 export default class Lamp {
   id: number;
-  power: number;
+  power: number;  
   posX: number;
   posY: number;
   place: PlaceType;
+  enabled: number = 1;
 
   constructor(id, posX, posY, place) {
+    this.id = id;
+    this.posX = posX;
+    this.posY = posY;
+    this.place = place;
     switch (place) {
       case PlaceType.DangerousPlaces: {
         this.power = 1.25;
@@ -30,5 +35,21 @@ export default class Lamp {
         break;
       }
     }
+  }
+
+  setEnabled(enable: number) {
+    this.enabled = enable;
+  }
+
+  getEnabled() {
+    return this.enabled;
+  }
+
+  getPower(): number {
+    return this.power;
+  }
+
+  setPower(power: number) {
+    this.power = power;
   }
 }
