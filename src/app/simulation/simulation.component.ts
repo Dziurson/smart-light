@@ -7,6 +7,9 @@ import { MovingObjectType } from '../model/moving-object-type';
 import SmartCityModel from '../model/smart-city-model';
 import Junction from '../model/junction';
 import { Direction } from '../model/direction';
+import { lamps } from '../modelData/lamps'
+import { movingObjects } from '../modelData/moving-objects'
+import Road from '../model/road';
 
 @Component({
   selector: 'app-simulation',
@@ -24,40 +27,30 @@ export class SimulationComponent implements OnInit {
   constructor(private drawingService: DrawingService) { 
     this.model = new SmartCityModel();
 
-    this.model.lampList.push(new Lamp(1,1100,200,PlaceType.DangerousPlaces));
-    this.model.lampList.push(new Lamp(2,900,200,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(3,700,200,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(4,500,200,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(5,300,200,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(6,300,500,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(7,500,500,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(8,700,500,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(9,900,500,PlaceType.NormalTraffic));
-    this.model.lampList.push(new Lamp(10,1100,500,PlaceType.NormalTraffic));
+    this.model.lampList = lamps;
+    this.model.objects = movingObjects;
 
-    this.model.objects.push(new MovingObject(1,1150,200,1,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(2,1000,200,11,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(3,1100,200,9,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(4,800,200,5,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(5,900,200,8,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(1,1150,200,2,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(2,1000,200,7,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(3,1100,200,6,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(4,800,200,4,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(5,900,200,2,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(1,1150,200,9,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(2,1000,200,5,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(3,1100,200,1,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(4,800,200,3,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(5,900,200,4,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(1,1150,200,5,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(2,1000,200,10,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(3,1100,200,7,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(4,800,200,3,MovingObjectType.Car));
-    this.model.objects.push(new MovingObject(5,900,200,4,MovingObjectType.Car));
+    this.model.junctions.push(new Junction(300,200,[Direction.Down, Direction.Right]));
+    this.model.junctions.push(new Junction(300,500,[Direction.Up, Direction.Right, Direction.Down]));
+    this.model.junctions.push(new Junction(1100,200,[Direction.Left, Direction.Down]));
+    this.model.junctions.push(new Junction(1100,500,[Direction.Left, Direction.Up, Direction.Down]));
+    this.model.junctions.push(new Junction(700,200,[Direction.Left, Direction.Right, Direction.Down]));
+    this.model.junctions.push(new Junction(700,500,[Direction.Left, Direction.Right, Direction.Up]));
+    this.model.junctions.push(new Junction(300,650,[Direction.Up, Direction.Right]));
+    this.model.junctions.push(new Junction(500,500,[Direction.Down, Direction.Right, Direction.Left]));
+    this.model.junctions.push(new Junction(500,650,[Direction.Up, Direction.Right, Direction.Left]));
+    this.model.junctions.push(new Junction(900,500,[Direction.Left, Direction.Down, Direction.Right]));
+    this.model.junctions.push(new Junction(900,650,[Direction.Left, Direction.Right, Direction.Up]));
+    this.model.junctions.push(new Junction(1100,650,[Direction.Left, Direction.Up]));
 
-    this.model.junctions.push(new Junction(300,200,[Direction.Down]));
-    this.model.junctions.push(new Junction(300,500,[Direction.Up, Direction.Right]));
+    this.model.roads.push(new Road(1100,200,300,200));
+    this.model.roads.push(new Road(1100,500,300,500));
+    this.model.roads.push(new Road(300,200,300,650));
+    this.model.roads.push(new Road(1100,200,1100,650));
+    this.model.roads.push(new Road(700,200,700,500));
+    this.model.roads.push(new Road(1100,650,300,650));
+    this.model.roads.push(new Road(900,500,900,650));
+    this.model.roads.push(new Road(500,500,500,650));
   }
 
   ngOnInit() {
@@ -83,23 +76,7 @@ export class SimulationComponent implements OnInit {
         ((j.posX + j.size > object.posX && j.posX - j.size < object.posX) && (j.posY + j.size > object.posY && j.posY - j.size < object.posY)));
 
       if(junction) {
-        object.direction = junction.directions[Math.floor(Math.random() * junction.directions.length)];
-        if(object.direction == Direction.Down) {
-          object.posX = junction.posX;
-          object.posY = junction.posY + junction.size;
-        }
-        if(object.direction == Direction.Up) {
-          object.posX = junction.posX;
-          object.posY = junction.posY - junction.size;
-        }
-        if(object.direction == Direction.Right) {
-          object.posX = junction.posX + junction.size;
-          object.posY = junction.posY;
-        }
-        if(object.direction == Direction.Left) {
-          object.posX = junction.posX - junction.size;
-          object.posY = junction.posY;
-        }
+        junction.setDirection(object);
       }
       object.move();
     })

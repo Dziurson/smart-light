@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 import SmartCityModel from '../model/smart-city-model';
 import MovingObject from '../model/moving-object';
 import { Direction } from '../model/direction';
+import Road from '../model/road';
 
 @Component({
   selector: 'app-drawing',
@@ -42,16 +43,10 @@ export class DrawingComponent implements OnInit {
 
   draw() {
     this.context.clearRect(0,0,this.screenWidth,this.screenHeight);
-    var prevLamp: Lamp = null;
-    this.model.lampList.forEach((lamp: Lamp) => {
-      if (prevLamp) {
-        this.drawLine(this.context, prevLamp.posX, prevLamp.posY, lamp.posX, lamp.posY);
-      }
-      prevLamp = lamp;
+    
+    this.model.roads.forEach((road: Road) => {
+      this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);     
     }) 
-    this.model.lampList.forEach((lamp: Lamp) => {
-      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.power*lamp.enabled);
-    })  
     this.model.objects.forEach((object: MovingObject) => {
       if(object.direction == Direction.Up || object.direction == Direction.Down) {
         this.drawRect(this.context, object.posX-5,object.posY-10,10,20,object.color);
@@ -59,7 +54,10 @@ export class DrawingComponent implements OnInit {
       if(object.direction == Direction.Left || object.direction == Direction.Right) {
         this.drawRect(this.context, object.posX-10,object.posY-5,20,10,object.color);
       }      
-    });  
+    });
+    this.model.lampList.forEach((lamp: Lamp) => {
+      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.power*lamp.enabled);
+    }) 
   }
 
   drawCircle(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, color: string = null) {
@@ -70,9 +68,7 @@ export class DrawingComponent implements OnInit {
       context.fillStyle = color;
       context.fill();
     }
-    context.lineWidth = 1;
-    context.strokeStyle = '#000000';
-    context.stroke();
+    context.lineWidth = 0;    
   }
 
   drawRect(context: CanvasRenderingContext2D, posX: number, posY: number, width: number, height: number, color: string = null) {
@@ -80,7 +76,6 @@ export class DrawingComponent implements OnInit {
       context.fillStyle = color;
       context.fillRect(posX, posY, width, height);
     }
-    context.strokeRect(posX, posY, width, height);
   }
 
   drawRing(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, scale: number, innerColor: string = 'rgba(0,0,0,0.5)', outerColor: string = 'rgba(255,255,0,0.5)') {
@@ -93,8 +88,9 @@ export class DrawingComponent implements OnInit {
     context.moveTo(startX, startY);
     context.lineWidth = 10;
     context.lineCap = "round";
-    context.lineTo(endX, endY);
-    context.stroke();
+    context.strokeStyle = "#AAAAAA";
+    context.lineTo(endX, endY);  
+    context.stroke();  
   }
 
 }

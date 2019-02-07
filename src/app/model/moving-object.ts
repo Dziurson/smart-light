@@ -8,14 +8,15 @@ export default class MovingObject {
     posY: number;
     velocity: number;
     direction: Direction = Direction.Left;
-    color: string = '#FF0000';
+    color: string;
 
-    constructor(id, posX, posY, velocity, type) {
+    constructor(id, posX, posY, velocity, type, color = '#FF0000') {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
         this.velocity = velocity;
         this.type = type;
+        this.color = color;
     }
 
     move() {
