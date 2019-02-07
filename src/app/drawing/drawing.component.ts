@@ -25,7 +25,7 @@ export class DrawingComponent implements OnInit {
 
   ngOnInit() {
     this.canvas = <HTMLCanvasElement>document.getElementById('stage');
-    this.screenHeight = 720;
+    this.screenHeight = 800;
     this.screenWidth = 1280;
     this.context = this.canvas.getContext('2d');
     this.context.imageSmoothingEnabled = false;
@@ -42,8 +42,7 @@ export class DrawingComponent implements OnInit {
   }
 
   draw() {
-    this.context.clearRect(0,0,this.screenWidth,this.screenHeight);
-    
+    this.context.clearRect(0,0,this.screenWidth,this.screenHeight);    
     this.model.roads.forEach((road: Road) => {
       this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);     
     }) 
@@ -56,7 +55,7 @@ export class DrawingComponent implements OnInit {
       }      
     });
     this.model.lampList.forEach((lamp: Lamp) => {
-      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.power*lamp.enabled);
+      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower*lamp.enabled);      
     }) 
   }
 
@@ -81,7 +80,7 @@ export class DrawingComponent implements OnInit {
   drawRing(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, scale: number, innerColor: string = 'rgba(0,0,0,0.5)', outerColor: string = 'rgba(255,255,0,0.5)') {
     this.drawCircle(context, posX, posY, radius * 8 * scale, outerColor)
     this.drawCircle(context, posX, posY, radius, innerColor)
-  }
+  } 
 
   drawLine(context: CanvasRenderingContext2D, startX: number, startY: number, endX: number, endY: number) {
     context.beginPath();
