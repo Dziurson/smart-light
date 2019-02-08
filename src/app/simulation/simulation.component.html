@@ -1,19 +1,35 @@
-<p>
-  simulation works!
-  {{iteration}}
-  <input type="number" [(ngModel)]="timeInterval" [disabled]="simulationRun">
-  <input type="number" [(ngModel)]="iterations" [disabled]="simulationRun">
-  <input type="text" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time" #start_time>
+<div class="mr-4">
+  <div class="form-group">
+    <label for="time-interval">Odstęp czasowy</label>
+    <input type="number" id="time-interval" class="form-control" [(ngModel)]="timeInterval" [disabled]="simulationRun"
+      placeholder="Odstęp czasowy [ms]">
+  </div>
+  <div class="form-group">
+    <label for="iteration-count">Ilość iteracji</label>
+    <input type="number" id="iteration-count" class="form-control" [(ngModel)]="iterations" [disabled]="simulationRun">
+  </div>
+  <div class="form-group">
+    <label for="start_time">Czas rozpoczęcia</label>
+    <input type="text" class="form-control" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time"
+      #start_time>
+  </div>
   <ng-container *ngIf="!simulationRun; else stopButton">
-    <button type="button" class="btn btn-danger" (click)="runSimulation(start_time.value)">start</button>
+    <button type="button" class="btn btn-danger btn-block" (click)="runSimulation(start_time.value)">
+      Rozpocznij symulację
+    </button>
   </ng-container>
   <ng-template #stopButton>
-    <button type="button" class="btn btn-danger" (click)="stopSimulation()">stop</button>
+    <button type="button" class="btn btn-danger btn-block" (click)="stopSimulation()">
+      Przerwij symulację
+    </button>
   </ng-template>
-</p>
-<p>
-  Total energy used without smart light system: {{model.totalEnergyNormalUsage | number}} [kWh]
-</p>
-<p>
-  Total energy used with smart light system: {{model.totalEnergyUsage | number}} [kWh]
-</p>
+  <div class="mt-2">
+    <p>Ilość wykonanych iteracji: {{iteration}}</p>
+  </div>
+  <div class="mt-2">
+    <p>Total energy used without smart light system: {{model.totalEnergyNormalUsage | number}} [kWh]</p>
+  </div>
+  <div class="mt-2">
+    <p>Total energy used with smart light system: {{model.totalEnergyUsage | number}} [kWh]</p>
+  </div>  
+</div>
