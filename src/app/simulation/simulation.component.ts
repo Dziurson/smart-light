@@ -76,7 +76,8 @@ export class SimulationComponent implements OnInit {
       this.firstStartTime = this.startTime;
       this.firstStart = false;
     } else {
-      // this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
+      this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
+      this.startTime = this.simulationHistory[this.simulationHistory.length - 1].timestamp;
     }
 
     var i = this.iterations;
