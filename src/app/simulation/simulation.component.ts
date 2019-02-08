@@ -31,7 +31,7 @@ export class SimulationComponent implements OnInit {
   simulationHistory: SimulationState[] = [];
   startTime: number;
   carCounter: number;
-  selectedTimestamp: number;
+  selectedTimestamp: number = 0;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -112,6 +112,7 @@ export class SimulationComponent implements OnInit {
     record.timestamp = timestamp;    
     record.state = this.model.clone();
     this.simulationHistory.push(record);
+    this.selectedTimestamp = this.simulationHistory.length;
   }
 
   stopSimulation() {
