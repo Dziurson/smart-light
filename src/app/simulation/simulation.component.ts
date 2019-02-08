@@ -31,6 +31,7 @@ export class SimulationComponent implements OnInit {
   simulationHistory: SimulationState[] = [];
   startTime: number;
   carCounter: number;
+  selectedTimestamp: number;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -90,7 +91,7 @@ export class SimulationComponent implements OnInit {
       this.iteration++;
       this.startTime += 1;
       i--;
-      this.saveSimmulationState(this.iteration, this.model);
+      this.saveSimmulationState(this.iteration, {...this.model});
       this.drawingService.setLampList(this.model);
     }, this.timeInterval)
   }
@@ -152,8 +153,9 @@ export class SimulationComponent implements OnInit {
     this.carCounter--;
   }
 
-  loadHistoryState(timestamp: number) {
-     this.drawingService.setLampList(this.simulationHistory[timestamp].state);
+  loadHistoryState() {
+    console.log(this.selectedTimestamp);
+     this.drawingService.setLampList(this.simulationHistory[this.selectedTimestamp].state);
   }
 }
 

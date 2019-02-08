@@ -30,10 +30,13 @@
         </button>
     </div>
     <div class="col second-button ml-1">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="addCar()" [disabled]="!simulationRun">
-            Dodaj samochód
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="removeCar()" [disabled]="!simulationRun">
+            Usuń samochód
         </button>
-    </div>
+    </div>    
+  </div>
+  <div class="slidecontainer mt-2">
+      <input type="range" min="1" max="100" value="50" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()">
   </div>
   
   <div class="mt-2">
@@ -52,14 +55,14 @@
           Całkowite zużycie energii
         </td>
         <td>
-          {{model.totalEnergyNormalUsage | number}} [kWh]
+          {{model.totalEnergyNormalUsage | number: '.3' }} [kWh]
         </td>
       </tr>
       <td>
         Całkowite zużycie energii z wykorzystaniem inteligentnego oświetlenia
       </td>
       <td>
-        {{model.totalEnergyUsage | number: .3 [kWh]}}
+        {{model.totalEnergyUsage | number: '.3' }} [kWh]
       </td>
       <tr>
       </tr>
