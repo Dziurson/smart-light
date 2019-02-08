@@ -30,6 +30,7 @@ export class SimulationComponent implements OnInit {
   firstStartTime: number;
   simulationHistory: SimulationState[] = [];
   startTime: number;
+  carCounter: number;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -63,6 +64,7 @@ export class SimulationComponent implements OnInit {
   ngOnInit() {
     // this.runSimulation(1000);
     this.startTime = (Date.now() / 1000);
+    this.carCounter = this.model.objects.length;
   }
 
 
@@ -133,6 +135,18 @@ export class SimulationComponent implements OnInit {
       item.updatePowerFromSensor(this.model.objects);
       this.calculatePowerUsage();
     })
+  }
+
+  addCar() {
+    const speed = Math.floor((Math.random() * 12) + 1);
+    const car = new MovingObject(this.carCounter, 900, 150, speed, MovingObjectType.Car);
+    this.model.objects.push(car);
+    this.carCounter++;
+  }
+
+  removeCar() {
+    this.model.objects.pop();
+    this.carCounter--;
   }
 }
 
