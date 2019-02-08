@@ -74,7 +74,10 @@ export class SimulationComponent implements OnInit {
     if (this.firstStart) {
       this.firstStartTime = this.startTime;
       this.firstStart = false;
+    } else {
+      this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
     }
+
     var i = this.iterations;
 
     this.simulationRun = true;
@@ -139,7 +142,7 @@ export class SimulationComponent implements OnInit {
 
   addCar() {
     const speed = Math.floor((Math.random() * 12) + 1);
-    const car = new MovingObject(this.carCounter, 900, 150, speed, MovingObjectType.Car);
+    const car = new MovingObject(this.carCounter, 1100, 150, speed, MovingObjectType.Car);
     this.model.objects.push(car);
     this.carCounter++;
   }
@@ -147,6 +150,10 @@ export class SimulationComponent implements OnInit {
   removeCar() {
     this.model.objects.pop();
     this.carCounter--;
+  }
+
+  loadHistoryState(timestamp: number) {
+    this.drawingService.setLampList(this.simulationHistory[timestamp].state);
   }
 }
 
