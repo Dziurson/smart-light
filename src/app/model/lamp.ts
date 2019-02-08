@@ -4,20 +4,21 @@ import MovingObject from './moving-object';
 
 export default class Lamp {
   id: number;
-  power: number;  
+  power: number;
   conditionalPower: number;
   posX: number;
   posY: number;
   place: PlaceType;
   enabled: number = 1;
   trafficSensor: TrafficSensor;
+  wattPower = 100;
 
   constructor(id, posX, posY, place) {
     this.id = id;
     this.posX = posX;
     this.posY = posY;
     this.place = place;
-    this.trafficSensor = new TrafficSensor(posX,posY);
+    this.trafficSensor = new TrafficSensor(posX, posY);
 
     switch (place) {
       case PlaceType.DangerousPlaces: {
@@ -51,19 +52,19 @@ export default class Lamp {
 
   getEnabled() {
     return this.enabled;
-  } 
+  }
 
   updatePowerFromSensor(objects: MovingObject[]) {
-    this.trafficSensor.findObjectsInRange(objects);    
-    if(this.trafficSensor.objectCount >= 5) { 
+    this.trafficSensor.findObjectsInRange(objects);
+    if(this.trafficSensor.objectCount >= 5) {
       this.conditionalPower = this.power * 1.75;
       return;
     }
-    if(this.trafficSensor.objectCount >= 3) { 
+    if(this.trafficSensor.objectCount >= 3) {
       this.conditionalPower = this.power * 1.5;
       return;
     }
-    if(this.trafficSensor.objectCount >= 2) { 
+    if(this.trafficSensor.objectCount >= 2) {
       this.conditionalPower = this.power * 1.25;
       return;
     }

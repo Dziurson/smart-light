@@ -1,7 +1,19 @@
 <p>
   simulation works!
   {{iteration}}
-  <input type="number" [(ngModel)]="timeInterval">
-  <input type="number" [(ngModel)]="iterations">
-  <button type="button" class="btn btn-danger" (click)="runSimulation()">start</button>
+  <input type="number" [(ngModel)]="timeInterval" [disabled]="simulationRun">
+  <input type="number" [(ngModel)]="iterations" [disabled]="simulationRun">
+  <input type="text" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time" #start_time>
+  <ng-container *ngIf="!simulationRun; else stopButton">
+    <button type="button" class="btn btn-danger" (click)="runSimulation(start_time.value)">start</button>
+  </ng-container>
+  <ng-template #stopButton>
+    <button type="button" class="btn btn-danger" (click)="stopSimulation()">stop</button>
+  </ng-template>
+</p>
+<p>
+  Total energy used without smart light system: {{model.totalEnergyNormalUsage | number}} [kWh]
+</p>
+<p>
+  Total energy used with smart light system: {{model.totalEnergyUsage | number}} [kWh]
 </p>

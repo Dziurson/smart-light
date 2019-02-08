@@ -10,6 +10,8 @@ import { Direction } from '../model/direction';
 import { lamps } from '../modelData/lamps'
 import { movingObjects } from '../modelData/moving-objects'
 import Road from '../model/road';
+import SimulationState from '../model/simulation-state';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-simulation',
@@ -18,13 +20,18 @@ import Road from '../model/road';
 })
 export class SimulationComponent implements OnInit {
 
-  lampStats: any[];  
-  private iteration: number = 0;
+  lampStats: any[];
+  private iteration = 0;
   iterations: number = 1000;
   timeInterval = 20;
   model: SmartCityModel;
+  simulationRun = false;
+  firstStart = true;
+  firstStartTime: number;
+  simulationHistory: SimulationState[] = [];
+  startTime: number;
 
-  constructor(private drawingService: DrawingService) { 
+  constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
 
     this.model.lampList = lamps;
@@ -55,24 +62,66 @@ export class SimulationComponent implements OnInit {
 
   ngOnInit() {
     // this.runSimulation(1000);
+    this.startTime = (Date.now() / 1000);
   }
 
 
-  runSimulation() {   
+  runSimulation(start_time: string) {
+    this.parseStartTime(start_time);
+
+    if (this.firstStart) {
+      this.firstStartTime = this.startTime;
+      this.firstStart = false;
+    }
     var i = this.iterations;
-    var simulation = setInterval(() => {
-      if(i == 0)
-        clearInterval(simulation);      
-      this.handleSystemIteration(); 
+
+    this.simulationRun = true;
+
+    const simulation = setInterval(() => {
+      if((i == 0) || !this.simulationRun) {
+        clearInterval(simulation);
+      }
+      this.handleSystemIteration();
       this.iteration++;
+      this.startTime += 1;
       i--;
+      this.saveSimmulationState(this.iteration, this.model);
       this.drawingService.setLampList(this.model);
     }, this.timeInterval)
   }
-  
+
+  parseStartTime(start_time: string) {
+    const today = new Date();
+    const time_t = start_time.trim().split(':');
+    const hour = Number(time_t[0]);
+    const minutes = Number(time_t[1]);
+    const seconds = Number(time_t[2]);
+
+    this.startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minutes, seconds).getTime() / 1000;
+  }
+
+  saveSimmulationState(timestamp: number, state: SmartCityModel) {
+    const record = new SimulationState();
+    record.timestamp = timestamp;
+    record.state = state;
+    this.simulationHistory.push(record);
+  }
+
+  stopSimulation() {
+    this.simulationRun = false;
+  }
+
+  calculatePowerUsage() {
+    const timePassedInS = this.startTime - this.firstStartTime;
+    this.model.lampList.forEach((item) => {
+      this.model.totalEnergyNormalUsage += (item.wattPower) / (1000 * 3600);
+      this.model.totalEnergyUsage += (item.power * item.wattPower) / (1000 * 3600);
+    });
+  }
+
   handleSystemIteration() {
     this.model.objects.filter(o => o.type == MovingObjectType.Car).forEach((object: MovingObject) => {
-      var junction = this.model.junctions.find(j =>     
+      var junction = this.model.junctions.find(j =>
         ((j.posX + j.size > object.posX && j.posX - j.size < object.posX) && (j.posY + j.size > object.posY && j.posY - j.size < object.posY)));
 
       if(junction) {
@@ -82,6 +131,8 @@ export class SimulationComponent implements OnInit {
     })
     this.model.lampList.forEach((item) => {
       item.updatePowerFromSensor(this.model.objects);
+      this.calculatePowerUsage();
     })
   }
 }
+

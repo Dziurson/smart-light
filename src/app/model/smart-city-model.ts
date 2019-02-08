@@ -6,8 +6,10 @@ import Road from './road';
 export default class SmartCityModel {
     lampList: Lamp[];
     objects: MovingObject[];
-    junctions: Junction[]; 
+    junctions: Junction[];
     roads: Road[];
+    totalEnergyUsage = 0;
+    totalEnergyNormalUsage = 0;
 
     constructor() {
         this.junctions = [];
