@@ -76,7 +76,7 @@ export class SimulationComponent implements OnInit {
       this.firstStartTime = this.startTime;
       this.firstStart = false;
     } else {
-      this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
+      // this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
     }
 
     var i = this.iterations;
@@ -91,7 +91,7 @@ export class SimulationComponent implements OnInit {
       this.iteration++;
       this.startTime += 1;
       i--;
-      this.saveSimmulationState(this.iteration, {...this.model});
+      this.saveSimmulationState(this.startTime, {...this.model});
       this.drawingService.setLampList(this.model);
     }, this.timeInterval)
   }
@@ -154,8 +154,11 @@ export class SimulationComponent implements OnInit {
   }
 
   loadHistoryState() {
-    console.log(this.selectedTimestamp);
-     this.drawingService.setLampList(this.simulationHistory[this.selectedTimestamp].state);
+    // console.log(this.selectedTimestamp);
+    console.log(this.simulationHistory[this.selectedTimestamp].state.totalEnergyNormalUsage);
+    this.model = this.simulationHistory[this.selectedTimestamp].state;
+    this.startTime = this.simulationHistory[this.selectedTimestamp].timestamp;
+    this.drawingService.setLampList(this.model);
   }
 }
 
