@@ -153,7 +153,7 @@ export class SimulationComponent implements OnInit {
   }
 
   loadHistoryState(timestamp: number) {
-    this.drawingService.setLampList(this.simulationHistory[timestamp].state);
+     this.drawingService.setLampList(this.simulationHistory[timestamp].state);
   }
 }
 
