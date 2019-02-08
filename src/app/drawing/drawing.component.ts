@@ -42,7 +42,6 @@ export class DrawingComponent implements OnInit {
   }
 
   draw() {
-    console.log("RYSUJE!");
     this.context.clearRect(0,0,this.screenWidth,this.screenHeight);
     this.model.roads.forEach((road: Road) => {
       this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);
@@ -92,5 +91,4 @@ export class DrawingComponent implements OnInit {
     context.lineTo(endX, endY);
     context.stroke();
   }
-
 }

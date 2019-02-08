@@ -13,6 +13,10 @@ export default class Junction {
         this.directions = directions;
     }
 
+    clone() : Junction {
+        return new Junction(this.posX, this.posY, this.directions);
+    }
+
     setDirection(object: MovingObject){
         var availableDirections = this.directions;
         switch(object.direction) {

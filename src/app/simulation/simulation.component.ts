@@ -92,7 +92,7 @@ export class SimulationComponent implements OnInit {
       this.iteration++;
       this.startTime += 1;
       i--;
-      this.saveSimmulationState(this.startTime, {...this.model});
+      this.saveSimmulationState(this.startTime);
       this.drawingService.setLampList(this.model);
     }, this.timeInterval)
   }
@@ -107,10 +107,10 @@ export class SimulationComponent implements OnInit {
     this.startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minutes, seconds).getTime() / 1000;
   }
 
-  saveSimmulationState(timestamp: number, state: SmartCityModel) {
-    const record = new SimulationState();
-    record.timestamp = timestamp;
-    record.state = state;
+  saveSimmulationState(timestamp: number) {
+    var record = new SimulationState();
+    record.timestamp = timestamp;    
+    record.state = this.model.clone();
     this.simulationHistory.push(record);
   }
 
@@ -154,12 +154,10 @@ export class SimulationComponent implements OnInit {
     this.carCounter--;
   }
 
-  loadHistoryState() {
-    // console.log(this.selectedTimestamp);
-    console.log(this.simulationHistory[this.selectedTimestamp].state.totalEnergyNormalUsage);
+  loadHistoryState() {    
     this.model = this.simulationHistory[this.selectedTimestamp].state;
     this.startTime = this.simulationHistory[this.selectedTimestamp].timestamp;
     this.drawingService.setLampList(this.model);
-  }
+  }  
 }
 

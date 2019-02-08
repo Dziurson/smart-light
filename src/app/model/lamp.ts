@@ -46,6 +46,16 @@ export default class Lamp {
     this.conditionalPower = this.power;
   }
 
+  clone() : Lamp {
+    var lamp = new Lamp(this.id, this.posX, this.posY, this.place)
+    lamp.conditionalPower = this.conditionalPower;
+    lamp.power = this.power;
+    lamp.enabled = this.enabled;
+    lamp.wattPower = this.wattPower;
+    lamp.trafficSensor = this.trafficSensor.clone();
+    return lamp;
+  }
+
   setEnabled(enable: number) {
     this.enabled = enable;
   }

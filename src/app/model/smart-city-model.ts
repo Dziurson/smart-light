@@ -17,4 +17,15 @@ export default class SmartCityModel {
         this.objects = [];
         this.roads = [];
     }
+
+    clone() : SmartCityModel {
+        let model = new SmartCityModel();
+        model.junctions = this.junctions.map(junction => junction.clone());
+        model.lampList = this.lampList.map(lamp => lamp.clone());
+        model.objects = this.objects.map(object => object.clone());
+        model.roads = this.roads.map(road => road.clone());
+        model.totalEnergyNormalUsage = this.totalEnergyNormalUsage;
+        model.totalEnergyUsage = this.totalEnergyUsage;
+        return model;
+    }
 }

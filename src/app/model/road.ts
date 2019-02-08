@@ -10,4 +10,8 @@ export default class Road {
         this.startX = startX;
         this.startY = startY;
     }
+
+    clone() : Road {
+        return new Road(this.startX, this.startY, this.endX, this.endY);
+    }
 }

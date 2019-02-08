@@ -12,6 +12,12 @@ export default class TrafficSensor {
         this.posY = posY;
     }
 
+    clone() {
+        var sensor = new TrafficSensor(this.posX, this.posY);
+        sensor.objectCount = this.objectCount;
+        return sensor;
+    }
+
     findObjectsInRange(objects: MovingObject[]) {
         this.objectCount = 0;
         var objectsInRange = objects.filter(o => 

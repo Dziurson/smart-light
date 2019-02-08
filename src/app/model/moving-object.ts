@@ -7,16 +7,21 @@ export default class MovingObject {
     posX: number;
     posY: number;
     velocity: number;
-    direction: Direction = Direction.Left;
+    direction: Direction;
     color: string;
 
-    constructor(id, posX, posY, velocity, type, color = '#FF0000') {
+    constructor(id, posX, posY, velocity, type, color = '#FF0000', direction = Direction.Left) {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
         this.velocity = velocity;
         this.type = type;
         this.color = color;
+        this.direction = direction;
+    }
+
+    clone() : MovingObject {
+        return new MovingObject(this.id, this.posX, this.posY, this.velocity, this.type, this.color, this.direction);
     }
 
     move() {

@@ -36,7 +36,7 @@
     </div>    
   </div>
   <div class="slidecontainer mt-2">
-      <input type="range" min="1" max="100" value="50" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
+      <input type="range" min="0" max="100" value="50" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
   </div>
   
   <div class="mt-2">
