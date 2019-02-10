@@ -12,6 +12,7 @@ import { movingObjects } from '../modelData/moving-objects'
 import Road from '../model/road';
 import SimulationState from '../model/simulation-state';
 import { Time } from '@angular/common';
+import { start } from 'repl';
 
 @Component({
   selector: 'app-simulation',
@@ -22,7 +23,7 @@ export class SimulationComponent implements OnInit {
 
   lampStats: any[];
   private iteration = 0;
-  iterations: number = 1000;
+  iterations: number = 3600;
   timeInterval = 20;
   model: SmartCityModel;
   simulationRun = false;
@@ -30,6 +31,7 @@ export class SimulationComponent implements OnInit {
   firstStartTime: number;
   simulationHistory: SimulationState[] = [];
   startTime: number;
+  endTime: number;
   carCounter: number;
   selectedTimestamp: number = 0;
 
@@ -65,12 +67,13 @@ export class SimulationComponent implements OnInit {
   ngOnInit() {
     // this.runSimulation(1000);
     this.startTime = (Date.now() / 1000);
+    this.endTime = this.startTime + 3600;
     this.carCounter = this.model.objects.length;
   }
 
 
-  runSimulation(start_time: string) {
-    this.parseStartTime(start_time);
+  runSimulation(start_time: string, end_time: string) {
+    this.calculateSimulationTime(start_time, end_time);
 
     if (this.firstStart) {
       this.firstStartTime = this.startTime;
@@ -97,19 +100,26 @@ export class SimulationComponent implements OnInit {
     }, this.timeInterval)
   }
 
-  parseStartTime(start_time: string) {
+  calculateSimulationTime(start_time: string, end_time: string) {
+    this.startTime = this.parseStartTime(start_time);
+    this.endTime = this.parseStartTime(end_time);
+
+    this.iterations = Math.abs(this.endTime - this.startTime);
+  }
+
+  parseStartTime(start_time: string): number {
     const today = new Date();
     const time_t = start_time.trim().split(':');
     const hour = Number(time_t[0]);
     const minutes = Number(time_t[1]);
     const seconds = Number(time_t[2]);
 
-    this.startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minutes, seconds).getTime() / 1000;
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minutes, seconds).getTime() / 1000;
   }
 
   saveSimmulationState(timestamp: number) {
     var record = new SimulationState();
-    record.timestamp = timestamp;    
+    record.timestamp = timestamp;
     record.state = this.model.clone();
     this.simulationHistory.push(record);
     this.selectedTimestamp = this.simulationHistory.length;
@@ -155,10 +165,10 @@ export class SimulationComponent implements OnInit {
     this.carCounter--;
   }
 
-  loadHistoryState() {    
+  loadHistoryState() {
     this.model = this.simulationHistory[this.selectedTimestamp].state;
     this.startTime = this.simulationHistory[this.selectedTimestamp].timestamp;
     this.drawingService.setLampList(this.model);
-  }  
+  }
 }
 

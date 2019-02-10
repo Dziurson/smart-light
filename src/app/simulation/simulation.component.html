@@ -5,16 +5,23 @@
       placeholder="Odstęp czasowy [ms]">
   </div>
   <div class="form-group">
-    <label for="iteration-count">Ilość iteracji</label>
-    <input type="number" id="iteration-count" class="form-control" [(ngModel)]="iterations" [disabled]="simulationRun">
+    <label for="iteration-count">Ilość pozostałych iteracji</label>
+    <input type="number" id="iteration-count" class="form-control" [value]="(iterations - iteration) + 1" [disabled]="true">
   </div>
-  <div class="form-group">
-    <label for="start_time">Czas rozpoczęcia</label>
-    <input type="text" class="form-control" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time"
-      #start_time>
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="start_time">Czas rozpoczęcia</label>
+      <input type="text" class="form-control" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time"
+        #start_time>
+    </div>
+    <div class="form-group col-6">
+      <label for="end_time">Czas zakończenia</label>
+      <input type="text" class="form-control" [ngModel]="endTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="end_time"
+        #end_time>
+    </div>
   </div>
   <ng-container *ngIf="!simulationRun; else stopButton">
-    <button type="button" class="btn btn-danger btn-block" (click)="runSimulation(start_time.value)">
+    <button type="button" class="btn btn-danger btn-block" (click)="runSimulation(start_time.value, end_time.value)">
       Rozpocznij symulację
     </button>
   </ng-container>
@@ -30,18 +37,18 @@
         </button>
     </div>
     <div class="col second-button ml-1">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="removeCar()" [disabled]="!simulationRun">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="removeCar()" [disabled]="!simulationRun || carCounter < 1">
             Usuń samochód
         </button>
-    </div>    
+    </div>
   </div>
   <div class="slidecontainer mt-2">
-      <input type="range" min="0" max="{{this.simulationHistory.length}}" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
+      <input type="range" min="1" max="100" value="50" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
   </div>
-  
+
   <div class="mt-2">
     <p>Ilość wykonanych iteracji: {{iteration}}</p>
-  </div>  
+  </div>
   <table class="table mt-2">
     <thead class="thead-dark">
       <tr>
@@ -69,3 +76,4 @@
     </tbody>
   </table>
 </div>
+
