@@ -1,13 +1,21 @@
 <div class="mr-4">
-  <div class="form-group">
-    <label for="time-interval">Odstęp czasowy</label>
-    <input type="number" id="time-interval" class="form-control" [(ngModel)]="timeInterval" [disabled]="simulationRun"
-      placeholder="Odstęp czasowy [ms]">
+  <div class="row">
+    <div class="form-group col-6">
+      <div class="form-group">
+        <label for="time-interval">Odstęp czasowy [ms]</label>
+        <input type="number" id="time-interval" class="form-control" [value]="simulationTimeStep*1000" [disabled]="true"
+          placeholder="Odstęp czasowy [ms]">
+      </div>
+    </div>
+    <div class="form-group col-6">
+      <div class="form-group">
+        <label for="iteration-count">Ilość pozostałych iteracji</label>
+        <input type="number" id="iteration-count" class="form-control" [value]="(iterations - iteration) + 1" [disabled]="true">
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="iteration-count">Ilość pozostałych iteracji</label>
-    <input type="number" id="iteration-count" class="form-control" [value]="(iterations - iteration) + 1" [disabled]="true">
-  </div>
+
+
   <div class="row">
     <div class="form-group col-6">
       <label for="start_time">Czas rozpoczęcia</label>

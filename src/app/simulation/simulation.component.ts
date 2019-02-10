@@ -34,6 +34,7 @@ export class SimulationComponent implements OnInit {
   endTime: number;
   carCounter: number;
   selectedTimestamp: number = 0;
+  simulationTimeStep = 1;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -93,7 +94,7 @@ export class SimulationComponent implements OnInit {
       }
       this.handleSystemIteration();
       this.iteration++;
-      this.startTime += 1;
+      this.startTime += this.simulationTimeStep;
       i--;
       this.saveSimmulationState(this.startTime);
       this.drawingService.setLampList(this.model);
@@ -132,8 +133,8 @@ export class SimulationComponent implements OnInit {
   calculatePowerUsage() {
     const timePassedInS = this.startTime - this.firstStartTime;
     this.model.lampList.forEach((item) => {
-      this.model.totalEnergyNormalUsage += (item.wattPower) / (1000 * 3600);
-      this.model.totalEnergyUsage += (item.power * item.wattPower) / (1000 * 3600);
+      this.model.totalEnergyNormalUsage += ((item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
+      this.model.totalEnergyUsage += ((item.power * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
     });
   }
 
