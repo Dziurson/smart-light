@@ -11,8 +11,6 @@ import { lamps } from '../modelData/lamps'
 import { movingObjects } from '../modelData/moving-objects'
 import Road from '../model/road';
 import SimulationState from '../model/simulation-state';
-import { Time } from '@angular/common';
-import { start } from 'repl';
 
 @Component({
   selector: 'app-simulation',
