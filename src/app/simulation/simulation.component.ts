@@ -40,6 +40,9 @@ export class SimulationComponent implements OnInit {
   context: CanvasRenderingContext2D;
   stepWattNormalPower: number;
   stepWattPower: number;
+  kwhPrice = 0.39975;
+  savedMoney = 0.0;
+  priceBuffor = 0.0;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -87,9 +90,9 @@ export class SimulationComponent implements OnInit {
         { "labels": [],
           "datasets": [{ "label": "Zaoszczędzona energia [%]", "data": [], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1 }]
         }, "options": {}
-      });      
+      });
     setInterval(() => {
-      if (this.model) {
+      if (this.model && this.simulationRun) {
         chart.data.labels.push("");
         chart.data.datasets[0].data.push(100 - this.model.totalEnergyUsage / this.model.totalEnergyNormalUsage * 100);
         chart.update();
@@ -105,6 +108,8 @@ export class SimulationComponent implements OnInit {
     if (this.firstStart) {
       this.firstStartTime = this.startTime;
       this.firstStart = false;
+      this.priceBuffor = this.savedMoney;
+      this.savedMoney = 0;
     } else {
       this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
       this.startTime = this.simulationHistory[this.simulationHistory.length - 1].timestamp;
@@ -116,6 +121,7 @@ export class SimulationComponent implements OnInit {
 
     const simulation = setInterval(() => {
       if ((i == 0) || !this.simulationRun) {
+        this.simulationRun = false;
         clearInterval(simulation);
       }
       this.handleSystemIteration();
@@ -166,6 +172,10 @@ export class SimulationComponent implements OnInit {
     });
   }
 
+  calculateSavedMoney() {
+    this.savedMoney = ((this.model.totalEnergyNormalUsage - this.model.totalEnergyUsage) * this.kwhPrice) + this.priceBuffor;
+  }
+
   handleSystemIteration() {
     this.model.objects.filter(o => o.type == MovingObjectType.Car).forEach((object: MovingObject) => {
       var junction = this.model.junctions.find(j =>
@@ -180,6 +190,7 @@ export class SimulationComponent implements OnInit {
       item.updatePowerFromSensor(this.model.objects);
       this.calculatePowerUsage();
     })
+    this.calculateSavedMoney();
   }
 
   addCar() {
