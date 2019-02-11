@@ -10,6 +10,8 @@ export default class SmartCityModel {
     roads: Road[];
     totalEnergyUsage = 0;
     totalEnergyNormalUsage = 0;
+    savedMoney: number = 0.0;
+    priceBuffor: number = 0.0;
 
     constructor() {
         this.junctions = [];
@@ -26,6 +28,8 @@ export default class SmartCityModel {
         model.roads = this.roads.map(road => road.clone());
         model.totalEnergyNormalUsage = this.totalEnergyNormalUsage;
         model.totalEnergyUsage = this.totalEnergyUsage;
+        model.savedMoney = this.savedMoney;
+        model.priceBuffor = this.priceBuffor;
         return model;
     }
 }

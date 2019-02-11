@@ -41,8 +41,7 @@ export class SimulationComponent implements OnInit {
   stepWattNormalPower: number;
   stepWattPower: number;
   kwhPrice = 0.39975;
-  savedMoney = 0.0;
-  priceBuffor = 0.0;
+  
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -108,8 +107,8 @@ export class SimulationComponent implements OnInit {
     if (this.firstStart) {
       this.firstStartTime = this.startTime;
       this.firstStart = false;
-      this.priceBuffor = this.savedMoney;
-      this.savedMoney = 0;
+      this.model.priceBuffor = this.model.savedMoney;
+      this.model.savedMoney = 0;
     } else {
       this.model = this.simulationHistory[this.simulationHistory.length - 1].state;
       this.startTime = this.simulationHistory[this.simulationHistory.length - 1].timestamp;
@@ -120,6 +119,8 @@ export class SimulationComponent implements OnInit {
     this.simulationRun = true;
 
     const simulation = setInterval(() => {
+      if (i == 0)
+        this.firstStart = true;
       if ((i == 0) || !this.simulationRun) {
         this.simulationRun = false;
         clearInterval(simulation);
@@ -136,8 +137,10 @@ export class SimulationComponent implements OnInit {
   calculateSimulationTime(start_time: string, end_time: string) {
     this.startTime = this.parseStartTime(start_time);
     this.endTime = this.parseStartTime(end_time);
-
-    this.iterations = Math.abs(this.endTime - this.startTime);
+    if(this.endTime < this.startTime)
+      this.iterations = this.endTime + 60*60*24;
+    else
+      this.iterations = Math.abs(this.endTime - this.startTime);
   }
 
   parseStartTime(start_time: string): number {
@@ -166,14 +169,14 @@ export class SimulationComponent implements OnInit {
     const timePassedInS = this.startTime - this.firstStartTime;
     this.model.lampList.forEach((item) => {
       this.stepWattNormalPower = ((item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
-      this.stepWattPower = ((item.power * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
+      this.stepWattPower = ((item.conditionalPower * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
       this.model.totalEnergyNormalUsage += this.stepWattNormalPower;
       this.model.totalEnergyUsage += this.stepWattPower;
     });
   }
 
   calculateSavedMoney() {
-    this.savedMoney = ((this.model.totalEnergyNormalUsage - this.model.totalEnergyUsage) * this.kwhPrice) + this.priceBuffor;
+    this.model.savedMoney = ((this.model.totalEnergyNormalUsage - this.model.totalEnergyUsage) * this.kwhPrice) + this.model.priceBuffor;
   }
 
   handleSystemIteration() {
