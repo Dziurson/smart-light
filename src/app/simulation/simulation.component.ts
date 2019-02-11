@@ -11,6 +11,7 @@ import { lamps } from '../modelData/lamps'
 import { movingObjects } from '../modelData/moving-objects'
 import Road from '../model/road';
 import SimulationState from '../model/simulation-state';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-simulation',
@@ -33,6 +34,12 @@ export class SimulationComponent implements OnInit {
   carCounter: number;
   selectedTimestamp: number = 0;
   simulationTimeStep = 1;
+  canvas: HTMLCanvasElement;
+  screenWidth: number;
+  screenHeight: number;
+  context: CanvasRenderingContext2D;
+  stepWattNormalPower: number;
+  stepWattPower: number;
 
   constructor(private drawingService: DrawingService) {
     this.model = new SmartCityModel();
@@ -40,27 +47,27 @@ export class SimulationComponent implements OnInit {
     this.model.lampList = lamps;
     this.model.objects = movingObjects;
 
-    this.model.junctions.push(new Junction(300,150,[Direction.Down, Direction.Right]));
-    this.model.junctions.push(new Junction(300,400,[Direction.Up, Direction.Right, Direction.Down]));
-    this.model.junctions.push(new Junction(1100,150,[Direction.Left, Direction.Down]));
-    this.model.junctions.push(new Junction(1100,400,[Direction.Left, Direction.Up, Direction.Down]));
-    this.model.junctions.push(new Junction(700,150,[Direction.Left, Direction.Right, Direction.Down]));
-    this.model.junctions.push(new Junction(700,400,[Direction.Left, Direction.Right, Direction.Up]));
-    this.model.junctions.push(new Junction(300,650,[Direction.Up, Direction.Right]));
-    this.model.junctions.push(new Junction(500,400,[Direction.Down, Direction.Right, Direction.Left]));
-    this.model.junctions.push(new Junction(500,650,[Direction.Up, Direction.Right, Direction.Left]));
-    this.model.junctions.push(new Junction(900,400,[Direction.Left, Direction.Down, Direction.Right]));
-    this.model.junctions.push(new Junction(900,650,[Direction.Left, Direction.Right, Direction.Up]));
-    this.model.junctions.push(new Junction(1100,650,[Direction.Left, Direction.Up]));
+    this.model.junctions.push(new Junction(300, 150, [Direction.Down, Direction.Right]));
+    this.model.junctions.push(new Junction(300, 400, [Direction.Up, Direction.Right, Direction.Down]));
+    this.model.junctions.push(new Junction(1100, 150, [Direction.Left, Direction.Down]));
+    this.model.junctions.push(new Junction(1100, 400, [Direction.Left, Direction.Up, Direction.Down]));
+    this.model.junctions.push(new Junction(700, 150, [Direction.Left, Direction.Right, Direction.Down]));
+    this.model.junctions.push(new Junction(700, 400, [Direction.Left, Direction.Right, Direction.Up]));
+    this.model.junctions.push(new Junction(300, 650, [Direction.Up, Direction.Right]));
+    this.model.junctions.push(new Junction(500, 400, [Direction.Down, Direction.Right, Direction.Left]));
+    this.model.junctions.push(new Junction(500, 650, [Direction.Up, Direction.Right, Direction.Left]));
+    this.model.junctions.push(new Junction(900, 400, [Direction.Left, Direction.Down, Direction.Right]));
+    this.model.junctions.push(new Junction(900, 650, [Direction.Left, Direction.Right, Direction.Up]));
+    this.model.junctions.push(new Junction(1100, 650, [Direction.Left, Direction.Up]));
 
-    this.model.roads.push(new Road(1100,150,300,150));
-    this.model.roads.push(new Road(1100,400,300,400));
-    this.model.roads.push(new Road(300,150,300,650));
-    this.model.roads.push(new Road(1100,150,1100,650));
-    this.model.roads.push(new Road(700,150,700,400));
-    this.model.roads.push(new Road(1100,650,300,650));
-    this.model.roads.push(new Road(900,400,900,650));
-    this.model.roads.push(new Road(500,400,500,650));
+    this.model.roads.push(new Road(1100, 150, 300, 150));
+    this.model.roads.push(new Road(1100, 400, 300, 400));
+    this.model.roads.push(new Road(300, 150, 300, 650));
+    this.model.roads.push(new Road(1100, 150, 1100, 650));
+    this.model.roads.push(new Road(700, 150, 700, 400));
+    this.model.roads.push(new Road(1100, 650, 300, 650));
+    this.model.roads.push(new Road(900, 400, 900, 650));
+    this.model.roads.push(new Road(500, 400, 500, 650));
   }
 
   ngOnInit() {
@@ -68,8 +75,29 @@ export class SimulationComponent implements OnInit {
     this.startTime = (Date.now() / 1000);
     this.endTime = this.startTime + 3600;
     this.carCounter = this.model.objects.length;
-  }
 
+    this.canvas = <HTMLCanvasElement>document.getElementById('chart');
+    this.screenHeight = 800;
+    this.screenWidth = 1280;
+    this.context = this.canvas.getContext('2d');
+    this.context.imageSmoothingEnabled = false;
+    var chart = new Chart(this.context,
+      {
+        "type": "line", "data":
+        { "labels": [],
+          "datasets": [{ "label": "Zaoszczędzona energia [%]", "data": [], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1 }]
+        }, "options": {}
+      });      
+    setInterval(() => {
+      if (this.model) {
+        chart.data.labels.push("");
+        chart.data.datasets[0].data.push(100 - this.model.totalEnergyUsage / this.model.totalEnergyNormalUsage * 100);
+        chart.update();
+      }
+    }, 1000);
+
+
+  }
 
   runSimulation(start_time: string, end_time: string) {
     this.calculateSimulationTime(start_time, end_time);
@@ -87,7 +115,7 @@ export class SimulationComponent implements OnInit {
     this.simulationRun = true;
 
     const simulation = setInterval(() => {
-      if((i == 0) || !this.simulationRun) {
+      if ((i == 0) || !this.simulationRun) {
         clearInterval(simulation);
       }
       this.handleSystemIteration();
@@ -131,8 +159,10 @@ export class SimulationComponent implements OnInit {
   calculatePowerUsage() {
     const timePassedInS = this.startTime - this.firstStartTime;
     this.model.lampList.forEach((item) => {
-      this.model.totalEnergyNormalUsage += ((item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
-      this.model.totalEnergyUsage += ((item.power * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
+      this.stepWattNormalPower = ((item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
+      this.stepWattPower = ((item.power * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
+      this.model.totalEnergyNormalUsage += this.stepWattNormalPower;
+      this.model.totalEnergyUsage += this.stepWattPower;
     });
   }
 
@@ -141,7 +171,7 @@ export class SimulationComponent implements OnInit {
       var junction = this.model.junctions.find(j =>
         ((j.posX + j.size > object.posX && j.posX - j.size < object.posX) && (j.posY + j.size > object.posY && j.posY - j.size < object.posY)));
 
-      if(junction) {
+      if (junction) {
         junction.setDirection(object);
       }
       object.move();
