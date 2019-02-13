@@ -2,6 +2,7 @@ import Lamp from './lamp';
 import MovingObject from './moving-object';
 import Junction from './junction';
 import Road from './road';
+import { MovingObjectType } from './moving-object-type';
 
 export default class SmartCityModel {
     lampList: Lamp[];
@@ -31,5 +32,9 @@ export default class SmartCityModel {
         model.savedMoney = this.savedMoney;
         model.priceBuffor = this.priceBuffor;
         return model;
+    }
+
+    getCarCount() {
+        return this.objects.filter(o => o.type == MovingObjectType.Car).length;
     }
 }
