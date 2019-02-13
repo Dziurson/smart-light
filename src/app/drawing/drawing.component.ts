@@ -19,6 +19,8 @@ export class DrawingComponent implements OnInit {
   screenHeight: number;
   context: CanvasRenderingContext2D;
   model: SmartCityModel;
+  mousex: number;
+  mousey: number;
 
   constructor( private drawingService: DrawingService ) {
   }
@@ -37,26 +39,35 @@ export class DrawingComponent implements OnInit {
           this.draw();
         }
       });
+      this.canvas.addEventListener("mousemove", (e) => {
+        var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;  
+        this.mousex = (e.clientX - rect.left) * scaleX;
+        this.mousey = (e.clientY - rect.top) * scaleY;  
+        this.draw();    
+      })
     })
 
   }
 
-  draw() {
-    this.context.clearRect(0,0,this.screenWidth,this.screenHeight);
-    this.model.roads.forEach((road: Road) => {
-      this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);
-    })
-    this.model.objects.forEach((object: MovingObject) => {
-      if(object.direction == Direction.Up || object.direction == Direction.Down) {
-        this.drawRect(this.context, object.posX-5,object.posY-10,10,20,object.color);
-      }
-      if(object.direction == Direction.Left || object.direction == Direction.Right) {
-        this.drawRect(this.context, object.posX-10,object.posY-5,20,10,object.color);
-      }
-    });
-    this.model.lampList.forEach((lamp: Lamp) => {
-      this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower*lamp.enabled);
-    })
+  draw() {    
+    this.context.clearRect(0, 0, this.screenWidth, this.screenHeight);    
+    if (this.model) {
+      this.model.roads.forEach((road: Road) => {
+        this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);
+      })
+      this.model.objects.forEach((object: MovingObject) => {
+        if (object.direction == Direction.Up || object.direction == Direction.Down) {
+          this.drawRect(this.context, object.posX - 5, object.posY - 10, 10, 20, object.color);
+        }
+        if (object.direction == Direction.Left || object.direction == Direction.Right) {
+          this.drawRect(this.context, object.posX - 10, object.posY - 5, 20, 10, object.color);
+        }
+      });
+      this.model.lampList.forEach((lamp: Lamp) => {
+        this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
+      })
+    }
+    this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
   }
 
   drawCircle(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, color: string = null) {
