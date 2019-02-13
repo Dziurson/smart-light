@@ -66,7 +66,7 @@ export class SimulationComponent implements OnInit {
     });
     setInterval(() => {
       if (this.model && this.simulationRun) {
-        if (chart.data.labels.length > 100) {
+        if (chart.data.labels.length > 50) {
           chart.data.labels.shift();
           chart.data.datasets[0].data.shift();
         }
@@ -174,7 +174,7 @@ export class SimulationComponent implements OnInit {
 
   addCar() {
     const speed = Math.floor((Math.random() * 12) + 1);
-    const car = new MovingObject(this.carCounter, 1100, 150, speed, MovingObjectType.Car);
+    const car = new MovingObject(this.carCounter, 1100, 150, speed, MovingObjectType.Car, "#"+((1<<24)*Math.random()|0).toString(16));
     this.model.objects.push(car);
     this.carCounter++;
   }
