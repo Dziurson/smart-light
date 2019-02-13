@@ -21,10 +21,10 @@ export class SetupComponent implements OnInit {
     private drawingService: DrawingService) { }
 
   ngOnInit() {
-    this.predefinedModels = smartCitytModels;
+    this.predefinedModels = smartCitytModels.map(m => m.clone());
     if(this.predefinedModels) {
       this.selectedModelNumber = 0;
-      this.selectedModel = this.predefinedModels[0].clone();
+      this.selectedModel = this.predefinedModels[0];
       this.drawingService.setLampList(this.selectedModel);
     }
   }
@@ -32,18 +32,18 @@ export class SetupComponent implements OnInit {
   saveChanges() {
     this.setupService.completed = true
     this.selectedModel.objects = movingObjects
-    this.setupService.selectedModel = this.selectedModel.clone();
+    this.setupService.selectedModel = this.selectedModel;
   }
 
   getNextModel() {
     this.selectedModelNumber++
-    this.selectedModel = this.predefinedModels[this.selectedModelNumber].clone()
+    this.selectedModel = this.predefinedModels[this.selectedModelNumber]
     this.drawingService.setLampList(this.selectedModel);
   }
 
   getPreviousModel() {
     this.selectedModelNumber--
-    this.selectedModel = this.predefinedModels[this.selectedModelNumber].clone()
+    this.selectedModel = this.predefinedModels[this.selectedModelNumber]
     this.drawingService.setLampList(this.selectedModel);
   }
 
