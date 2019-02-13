@@ -4,18 +4,28 @@
   </div>
   <div class="row mt-2">
     <div class="col first-button mr-1">
-      <button type="button" class="btn btn-outline-primary btn-block" (click)="getPreviousModel()" [disabled] = "predefinedModels.length == 0 || selectedModelNumber == 0">
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="getPreviousModel()"
+        [disabled]="setupService.predefinedModels.length == 0 || setupService.selectedModelNumber == 0">
         Poprzednia
       </button>
     </div>
     <div class="col second-button ml-1">
-      <button type="button" class="btn btn-outline-primary btn-block" (click)="getNextModel()" [disabled] = "predefinedModels.length == 0 || selectedModelNumber == (predefinedModels.length - 1)">
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="getNextModel()"
+        [disabled]="setupService.predefinedModels.length == 0 || setupService.selectedModelNumber == (setupService.predefinedModels.length - 1)">
         Następna
       </button>
     </div>
   </div>
+  <div class="row mt-2 mx-1">
+    Dodaj Lampę
+  </div>
   <div class="row mt-2 button-wide">
-    <button type="button" class="btn btn-primary btn-block" (click)="saveChanges()">
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="setLamp()">
+        Nowa Lampa
+      </button>
+    </div>
+  <div class="row mt-2 button-wide">
+    <button type="button" class="btn btn-danger btn-block" (click)="saveChanges()">
       Zapisz
     </button>
   </div>
