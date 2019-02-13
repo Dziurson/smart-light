@@ -92,6 +92,10 @@ export class SimulationComponent implements OnInit {
       });
     setInterval(() => {
       if (this.model && this.simulationRun) {
+        if(chart.data.labels.length > 100) {
+          chart.data.labels.shift();
+          chart.data.datasets[0].data.shift();
+        }
         chart.data.labels.push("");
         chart.data.datasets[0].data.push(100 - this.model.totalEnergyUsage / this.model.totalEnergyNormalUsage * 100);
         chart.update();
