@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SetupService } from './services/setup.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'smart-light';
-
   
+  constructor(private setupService: SetupService) {}
 }
