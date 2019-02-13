@@ -6,6 +6,7 @@ import SmartCityModel from '../model/smart-city-model';
 import MovingObject from '../model/moving-object';
 import { Direction } from '../model/direction';
 import Road from '../model/road';
+import { SetupService } from '../services/setup.service';
 
 @Component({
   selector: 'app-drawing',
@@ -22,7 +23,9 @@ export class DrawingComponent implements OnInit {
   mousex: number;
   mousey: number;
 
-  constructor( private drawingService: DrawingService ) {
+  constructor( 
+    private drawingService: DrawingService,
+    private setupService: SetupService ) {
   }
 
   ngOnInit() {
@@ -40,10 +43,12 @@ export class DrawingComponent implements OnInit {
         }
       });
       this.canvas.addEventListener("mousemove", (e) => {
-        var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;  
-        this.mousex = (e.clientX - rect.left) * scaleX;
-        this.mousey = (e.clientY - rect.top) * scaleY;  
-        this.draw();    
+        if(!this.setupService.completed) {
+          var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;  
+          this.mousex = (e.clientX - rect.left) * scaleX;
+          this.mousey = (e.clientY - rect.top) * scaleY;  
+          this.draw();    
+        }
       })
     })
 
@@ -67,7 +72,8 @@ export class DrawingComponent implements OnInit {
         this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
       })
     }
-    this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
+    if(!this.setupService.completed)
+      this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
   }
 
   drawCircle(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, color: string = null) {

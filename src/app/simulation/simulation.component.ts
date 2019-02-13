@@ -12,6 +12,7 @@ import { movingObjects } from '../modelData/moving-objects'
 import Road from '../model/road';
 import SimulationState from '../model/simulation-state';
 import Chart from 'chart.js';
+import { SetupService } from '../services/setup.service';
 
 @Component({
   selector: 'app-simulation',
@@ -39,33 +40,10 @@ export class SimulationComponent implements OnInit {
   kwhPrice = 0.39975;
   
 
-  constructor(private drawingService: DrawingService) {
-    this.model = new SmartCityModel();
-
-    this.model.lampList = lamps;
-    this.model.objects = movingObjects;
-
-    this.model.junctions.push(new Junction(300, 150, [Direction.Down, Direction.Right]));
-    this.model.junctions.push(new Junction(300, 400, [Direction.Up, Direction.Right, Direction.Down]));
-    this.model.junctions.push(new Junction(1100, 150, [Direction.Left, Direction.Down]));
-    this.model.junctions.push(new Junction(1100, 400, [Direction.Left, Direction.Up, Direction.Down]));
-    this.model.junctions.push(new Junction(700, 150, [Direction.Left, Direction.Right, Direction.Down]));
-    this.model.junctions.push(new Junction(700, 400, [Direction.Left, Direction.Right, Direction.Up]));
-    this.model.junctions.push(new Junction(300, 650, [Direction.Up, Direction.Right]));
-    this.model.junctions.push(new Junction(500, 400, [Direction.Down, Direction.Right, Direction.Left]));
-    this.model.junctions.push(new Junction(500, 650, [Direction.Up, Direction.Right, Direction.Left]));
-    this.model.junctions.push(new Junction(900, 400, [Direction.Left, Direction.Down, Direction.Right]));
-    this.model.junctions.push(new Junction(900, 650, [Direction.Left, Direction.Right, Direction.Up]));
-    this.model.junctions.push(new Junction(1100, 650, [Direction.Left, Direction.Up]));
-
-    this.model.roads.push(new Road(1100, 150, 300, 150));
-    this.model.roads.push(new Road(1100, 400, 300, 400));
-    this.model.roads.push(new Road(300, 150, 300, 650));
-    this.model.roads.push(new Road(1100, 150, 1100, 650));
-    this.model.roads.push(new Road(700, 150, 700, 400));
-    this.model.roads.push(new Road(1100, 650, 300, 650));
-    this.model.roads.push(new Road(900, 400, 900, 650));
-    this.model.roads.push(new Road(500, 400, 500, 650));
+  constructor(
+    private drawingService: DrawingService,
+    private setupService: SetupService) {
+    this.model = this.setupService.selectedModel
   }
 
   ngOnInit() {
