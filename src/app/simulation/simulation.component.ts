@@ -33,11 +33,7 @@ export class SimulationComponent implements OnInit {
   endTime: number;
   carCounter: number;
   selectedTimestamp: number = 0;
-  simulationTimeStep = 1;
-  canvas: HTMLCanvasElement;
-  screenWidth: number;
-  screenHeight: number;
-  context: CanvasRenderingContext2D;
+  simulationTimeStep = 1;  
   stepWattNormalPower: number;
   stepWattPower: number;
   kwhPrice = 0.39975;
@@ -76,23 +72,23 @@ export class SimulationComponent implements OnInit {
     // this.runSimulation(1000);
     this.startTime = (Date.now() / 1000);
     this.endTime = this.startTime + 3600;
-    this.carCounter = this.model.objects.length;
+    this.carCounter = this.model.objects.length;   
+    this.setupChart();
+  }
 
-    this.canvas = <HTMLCanvasElement>document.getElementById('chart');
-    this.screenHeight = 800;
-    this.screenWidth = 1280;
-    this.context = this.canvas.getContext('2d');
-    this.context.imageSmoothingEnabled = false;
-    var chart = new Chart(this.context,
-      {
-        "type": "line", "data":
-        { "labels": [],
-          "datasets": [{ "label": "Zaoszczędzona energia [%]", "data": [], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1 }]
-        }, "options": {}
-      });
+  private setupChart() {
+    var canvas = <HTMLCanvasElement>document.getElementById('chart');    
+    var context = canvas.getContext('2d');
+    context.imageSmoothingEnabled = false;
+    var chart = new Chart(context, {
+      "type": "line", "data": {
+      "labels": [],
+        "datasets": [{ "label": "Zaoszczędzona energia [%]", "data": [], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1 }]
+      }, "options": {}
+    });
     setInterval(() => {
       if (this.model && this.simulationRun) {
-        if(chart.data.labels.length > 100) {
+        if (chart.data.labels.length > 100) {
           chart.data.labels.shift();
           chart.data.datasets[0].data.shift();
         }
@@ -101,8 +97,6 @@ export class SimulationComponent implements OnInit {
         chart.update();
       }
     }, 1000);
-
-
   }
 
   runSimulation(start_time: string, end_time: string) {
