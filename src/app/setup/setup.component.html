@@ -2,28 +2,50 @@
   <div class="row mt-2 mx-1">
     Wybierz mapę
   </div>
-  <div class="row mt-2">
+  <div class="row mt-2 border-bottom">
     <div class="col first-button mr-1">
       <button type="button" class="btn btn-outline-primary btn-block" (click)="getPreviousModel()"
         [disabled]="setupService.predefinedModels.length == 0 || setupService.selectedModelNumber == 0">
         Poprzednia
       </button>
     </div>
-    <div class="col second-button ml-1">
+    <div class="col second-button ml-1 mb-2">
       <button type="button" class="btn btn-outline-primary btn-block" (click)="getNextModel()"
         [disabled]="setupService.predefinedModels.length == 0 || setupService.selectedModelNumber == (setupService.predefinedModels.length - 1)">
         Następna
       </button>
     </div>
   </div>
-  <div class="row mt-2 mx-1">
-    Dodaj Lampę
+  <div class="form-group row mt-2">
+    <label for="select-place" class="col-sm-2 col-lg-3 col-form-label">Miejsce</label>
+    <div class="col-sm-10 col-lg-9">
+      <select id="select-place" class="form-control" [(ngModel)]="selectedLampType" [disabled]="isLampPlacing">
+        <option value="0" label="Ulica (Normalny Ruch)"></option>
+        <option value="1" label="Ulica (Wzmożony Ruch)"></option>
+        <option value="2" label="Niebezpieczne Miejsce"></option>
+      </select>
+    </div>
   </div>
-  <div class="row mt-2 button-wide">
-      <button type="button" class="btn btn-outline-primary btn-block" (click)="setLamp()">
-        Nowa Lampa
+  <div class="form-group row mt-2">
+      <label for="watt-power" class="col-sm-2 col-lg-3 col-form-label">Moc Żarówki</label>
+      <div class="col-sm-10 col-lg-9">
+          <input type="number" class="form-control" id="watt-power" [(ngModel)]="lampWattPower" placeholder="[W]" [disabled]="isLampPlacing">
+      </div>
+    </div>
+  <div class="row mt-2 border-bottom">
+    <div class="col first-button mr-1">
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="startPlacingLamp()"
+        [disabled]="isLampPlacing">
+        Ustaw Lampę
       </button>
     </div>
+    <div class="col second-button ml-1 mb-2">
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="finishPlacingLamp()"
+        [disabled]="!isLampPlacing">
+        Zakończ
+      </button>
+    </div>
+  </div>
   <div class="row mt-2 button-wide">
     <button type="button" class="btn btn-danger btn-block" (click)="saveChanges()">
       Zapisz

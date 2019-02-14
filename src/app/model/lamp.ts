@@ -64,6 +64,13 @@ export default class Lamp {
     return this.enabled;
   }
 
+  setPosition(posX, posY) {
+    this.posX = posX
+    this.posY = posY
+    this.trafficSensor.posX = posX
+    this.trafficSensor.posY = posY
+  }
+
   updatePowerFromSensor(objects: MovingObject[]) {
     this.trafficSensor.findObjectsInRange(objects);
     if(this.trafficSensor.objectCount >= 5) {

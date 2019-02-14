@@ -7,6 +7,7 @@ import MovingObject from '../model/moving-object';
 import { Direction } from '../model/direction';
 import Road from '../model/road';
 import { SetupService } from '../services/setup.service';
+import { lamps } from '../modelData/lamps';
 
 @Component({
   selector: 'app-drawing',
@@ -51,9 +52,9 @@ export class DrawingComponent implements OnInit {
         }
       })
 
-      this.canvas.addEventListener("mouseup", (e) => {
-        this.setupService.cursor = "default"
-        this.setupService.addLamp(this.mousex,this.mousey);
+      this.canvas.addEventListener("mouseup", () => { 
+        if(this.setupService.cursor === "lamp")      
+          this.setupService.addLamp(this.mousex,this.mousey);
       })
     })
 
@@ -73,7 +74,7 @@ export class DrawingComponent implements OnInit {
           this.drawRect(this.context, object.posX - 10, object.posY - 5, 20, 10, object.color);
         }
       });
-      this.model.lampList.forEach((lamp: Lamp) => {
+      this.model.lampList.forEach((lamp: Lamp) => {        
         this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
       })
     }
@@ -81,7 +82,7 @@ export class DrawingComponent implements OnInit {
       if(this.setupService.cursor === "default")
         this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
       if(this.setupService.cursor === "lamp")
-        this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, 1);
+        this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, this.setupService.selectedLamp.conditionalPower);      
     }
   }
 
