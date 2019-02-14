@@ -7,11 +7,12 @@ import { movingObjects } from '../modelData/moving-objects';
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.css']
 })
-export class SetupComponent implements OnInit { 
+export class SetupComponent implements OnInit {
 
   isLampPlacing: boolean = false;
   selectedLampType: number = 0;
   lampWattPower: number = 100;
+  selectedScenarioType: number = 0;
 
   constructor(
     private setupService: SetupService) { }
@@ -31,9 +32,9 @@ export class SetupComponent implements OnInit {
 
   getPreviousModel() {
     this.setupService.getPreviousModel();
-  }  
+  }
 
-  startPlacingLamp() {    
+  startPlacingLamp() {
     this.isLampPlacing = true;
     this.setupService.startPlacingLamp(this.selectedLampType, this.lampWattPower);
   }
@@ -41,6 +42,28 @@ export class SetupComponent implements OnInit {
   finishPlacingLamp() {
     this.isLampPlacing = false;
     this.setupService.finishPlacingLamp();
+  }
+
+  updateScenario() {
+    this.setupService.setScenario(this.selectedScenarioType);
+  }
+
+  saveModel() {
+    this.setupService.saveModel();
+  }
+
+  loadModel(e) {
+    // console.log(file);
+    const file = e.srcElement.files[0];
+    // console.log(file);
+    const t = new Blob([file], { type: 'text/json;charset=utf-8' });
+    const reader = new FileReader();
+    reader.onload = () => {
+        this.setupService.loadModel(reader.result);
+        // console.log(reader.result);
+    };
+    const text = reader.readAsText(file);
+    // console.log(text);
   }
 
 }

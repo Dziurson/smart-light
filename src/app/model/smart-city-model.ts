@@ -1,3 +1,4 @@
+import { PlaceType } from './place-type';
 import Lamp from './lamp';
 import MovingObject from './moving-object';
 import Junction from './junction';
@@ -13,12 +14,14 @@ export default class SmartCityModel {
     totalEnergyNormalUsage = 0;
     savedMoney: number = 0.0;
     priceBuffor: number = 0.0;
+    place: PlaceType;
 
     constructor() {
         this.junctions = [];
         this.lampList = [];
         this.objects = [];
         this.roads = [];
+        this.place = PlaceType.NormalTraffic;
     }
 
     clone() : SmartCityModel {

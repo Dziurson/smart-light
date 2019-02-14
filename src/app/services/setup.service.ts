@@ -4,6 +4,7 @@ import Lamp from '../model/lamp';
 import { PlaceType } from '../model/place-type';
 import { DrawingService } from './drawing.service';
 import { smartCitytModels } from '../modelData/predefined-models';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,44 @@ export class SetupService {
 
   finishPlacingLamp() {
     this.cursor = "default"
+  }
+
+  setScenario(id) {
+    this.selectedModel.place = this.getPlaceById(id);
+    this.drawingService.setLampList(this.selectedModel);
+  }
+
+  saveModel() {
+    const model = JSON.stringify({SmartCityModel: this.selectedModel});
+    const t = new Blob([model], { type: 'text/json;charset=utf-8' });
+    saveAs(t, 'model.txt');
+    //console.log(model);
+  }
+
+  loadModel(model) {
+    console.log(model);
+    // this.selectedModel = JSON.parse(model);
+    this.drawingService.setLampList(this.selectedModel);
+  }
+
+  getPlaceById(id): PlaceType {
+    switch (id) {
+      case '0': {
+        return PlaceType.NormalTraffic;
+      }
+      case '1': {
+        return PlaceType.HighTraffic;
+      }
+      case '2': {
+        return PlaceType.DangerousPlaces;
+      }
+      case '3': {
+        return PlaceType.Parks;
+      }
+      default: {
+        return PlaceType.NormalTraffic;
+      }
+    }
   }
 
   getPlaceType(id): PlaceType {

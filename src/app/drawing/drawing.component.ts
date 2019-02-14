@@ -8,6 +8,7 @@ import { Direction } from '../model/direction';
 import Road from '../model/road';
 import { SetupService } from '../services/setup.service';
 import { lamps } from '../modelData/lamps';
+import { PlaceType } from '../model/place-type';
 
 @Component({
   selector: 'app-drawing',
@@ -24,7 +25,7 @@ export class DrawingComponent implements OnInit {
   mousex: number;
   mousey: number;
 
-  constructor( 
+  constructor(
     private drawingService: DrawingService,
     private setupService: SetupService ) {
   }
@@ -45,23 +46,47 @@ export class DrawingComponent implements OnInit {
       });
       this.canvas.addEventListener("mousemove", (e) => {
         if(!this.setupService.completed) {
-          var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;  
+          var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;
           this.mousex = (e.clientX - rect.left) * scaleX;
-          this.mousey = (e.clientY - rect.top) * scaleY;  
-          this.draw();    
+          this.mousey = (e.clientY - rect.top) * scaleY;
+          this.draw();
         }
       })
 
-      this.canvas.addEventListener("mouseup", () => { 
-        if(this.setupService.cursor === "lamp")      
+      this.canvas.addEventListener("mouseup", () => {
+        if(this.setupService.cursor === "lamp")
           this.setupService.addLamp(this.mousex,this.mousey);
       })
     })
 
   }
 
-  draw() {    
-    this.context.clearRect(0, 0, this.screenWidth, this.screenHeight);    
+  drawBackground() {
+    switch (+this.model.place) {
+      case PlaceType.NormalTraffic:
+        this.context.fillStyle = "LightGrey";
+        break;
+      case PlaceType.HighTraffic:
+        this.context.fillStyle = "Beige";
+        break;
+      case PlaceType.Parks:
+        this.context.fillStyle = "LightGreen";
+        break;
+      default:
+        this.context.fillStyle = "White";
+        break;
+    }
+
+    this.context.fillRect(0, 0, this.screenWidth, this.screenHeight);
+  }
+
+  draw() {
+    // this.context.clearRect(0, 0, this.screenWidth, this.screenHeight);
+    this.drawBackground();
+
+
+
+
     if (this.model) {
       this.model.roads.forEach((road: Road) => {
         this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);
@@ -74,7 +99,7 @@ export class DrawingComponent implements OnInit {
           this.drawRect(this.context, object.posX - 10, object.posY - 5, 20, 10, object.color);
         }
       });
-      this.model.lampList.forEach((lamp: Lamp) => {        
+      this.model.lampList.forEach((lamp: Lamp) => {
         this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
       })
     }
@@ -82,7 +107,7 @@ export class DrawingComponent implements OnInit {
       if(this.setupService.cursor === "default")
         this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
       if(this.setupService.cursor === "lamp")
-        this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, this.setupService.selectedLamp.conditionalPower);      
+        this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, this.setupService.selectedLamp.conditionalPower);
     }
   }
 
