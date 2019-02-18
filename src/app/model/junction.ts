@@ -17,6 +17,12 @@ export default class Junction {
         return new Junction(this.posX, this.posY, this.directions);
     }
 
+    static from(junction: Junction) : Junction {
+        var result = new Junction(junction.posX, junction.posY, junction.directions);
+        result.size = junction.size;
+        return result;
+    }
+
     setDirection(object: MovingObject){
         var availableDirections = this.directions;
         switch(object.direction) {

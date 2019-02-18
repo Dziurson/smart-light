@@ -56,6 +56,16 @@ export default class Lamp {
     return lamp;
   }
 
+  static from(lamp: Lamp) : Lamp {
+    var result = new Lamp(lamp.id, lamp.posX, lamp.posY, lamp.place)
+    result.conditionalPower = lamp.conditionalPower;
+    result.power = lamp.power;
+    result.enabled = lamp.enabled;
+    result.wattPower = lamp.wattPower;
+    result.trafficSensor = TrafficSensor.from(lamp.trafficSensor);
+    return result;
+}
+
   setEnabled(enable: number) {
     this.enabled = enable;
   }

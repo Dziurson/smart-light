@@ -37,6 +37,19 @@ export default class SmartCityModel {
         return model;
     }
 
+    static from(model: SmartCityModel) : SmartCityModel {
+        let result = new SmartCityModel();
+        result.junctions = model.junctions.map(junction => Junction.from(junction));
+        result.lampList = model.lampList.map(lamp => Lamp.from(lamp));
+        result.objects = model.objects.map(object => MovingObject.from(object));
+        result.roads = model.roads.map(road => Road.from(road));
+        result.totalEnergyNormalUsage = model.totalEnergyNormalUsage;
+        result.totalEnergyUsage = model.totalEnergyUsage;
+        result.savedMoney = model.savedMoney;
+        result.priceBuffor = model.priceBuffor;
+        return result;
+    }
+
     getCarCount() {
         return this.objects.filter(o => o.type == MovingObjectType.Car).length;
     }

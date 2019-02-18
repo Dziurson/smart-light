@@ -24,6 +24,10 @@ export default class MovingObject {
         return new MovingObject(this.id, this.posX, this.posY, this.velocity, this.type, this.color, this.direction);
     }
 
+    static from(object: MovingObject) : MovingObject {
+        return new MovingObject(object.id, object.posX, object.posY, object.velocity, object.type, object.color, object.direction);
+    }
+
     move() {
         switch(this.direction) {
             case Direction.Up: {

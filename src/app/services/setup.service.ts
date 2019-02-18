@@ -68,12 +68,13 @@ export class SetupService {
     const model = JSON.stringify({SmartCityModel: this.selectedModel});
     const t = new Blob([model], { type: 'text/json;charset=utf-8' });
     saveAs(t, 'model.txt');
-    //console.log(model);
   }
 
   loadModel(model) {
-    console.log(model);
-    // this.selectedModel = JSON.parse(model);
+    var parsedJson = JSON.parse(model);
+    if(!parsedJson.SmartCityModel)
+      return;
+    this.selectedModel = SmartCityModel.from(parsedJson.SmartCityModel);
     this.drawingService.setLampList(this.selectedModel);
   }
 

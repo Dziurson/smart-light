@@ -18,6 +18,12 @@ export default class TrafficSensor {
         return sensor;
     }
 
+    static from(sensor: TrafficSensor) : TrafficSensor {
+        var result = new TrafficSensor(sensor.posX, sensor.posY);
+        result.objectCount = sensor.objectCount;
+        return result;
+    }
+
     findObjectsInRange(objects: MovingObject[]) {
         this.objectCount = 0;
         var objectsInRange = objects.filter(o => 

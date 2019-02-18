@@ -103,9 +103,7 @@ export class DrawingComponent implements OnInit {
         this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
       })
     }
-    if(!this.setupService.completed) {
-      if(this.setupService.cursor === "default")
-        this.drawRect(this.context, this.mousex - 10, this.mousey - 10, 20, 20, '#FF00FF')
+    if(!this.setupService.completed) {      
       if(this.setupService.cursor === "lamp")
         this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, this.setupService.selectedLamp.conditionalPower);
     }
