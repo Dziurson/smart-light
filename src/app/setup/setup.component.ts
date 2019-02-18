@@ -10,6 +10,7 @@ import { movingObjects } from '../modelData/moving-objects';
 export class SetupComponent implements OnInit {
 
   isLampPlacing: boolean = false;
+  isRoadPlacing: boolean = false;
   selectedLampType: number = 0;
   lampWattPower: number = 100;
   selectedScenarioType: number = 0;
@@ -42,6 +43,16 @@ export class SetupComponent implements OnInit {
   finishPlacingLamp() {
     this.isLampPlacing = false;
     this.setupService.finishPlacingLamp();
+  }
+
+  startDrawingRoads() {
+    this.isRoadPlacing = true;
+    this.setupService.startDrawingRoads();
+  }
+
+  finishDrawingRoads() {
+    this.isRoadPlacing = false;
+    this.setupService.finishDrawingRoads();
   }
 
   updateScenario() {

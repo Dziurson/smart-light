@@ -91,4 +91,6 @@ model3.roads = [
     new Road(1100, 650, 300, 650),    
 ]
 
-export const smartCitytModels: SmartCityModel[] = [model1, model2, model3];
+const model4: SmartCityModel = new SmartCityModel()
+
+export const smartCitytModels: SmartCityModel[] = [model1, model2, model3, model4];

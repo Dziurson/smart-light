@@ -5,6 +5,7 @@ import { PlaceType } from '../model/place-type';
 import { DrawingService } from './drawing.service';
 import { smartCitytModels } from '../modelData/predefined-models';
 import { saveAs } from 'file-saver';
+import Road from '../model/road';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class SetupService {
   selectedModel: SmartCityModel
   selectedModelNumber: number
   selectedLamp: Lamp
+  
+  roadStartX: number = null;
+  roadStartY: number = null;
 
   cursor: String = "default"
 
@@ -26,6 +30,10 @@ export class SetupService {
     lamp.setPosition(posX, posY);
     this.selectedModel.lampList.push(lamp);
     this.drawingService.setLampList(this.selectedModel);
+  }
+
+  addRoad(startx, starty, endx, endy) {
+    this.selectedModel.roads.push(new Road(startx,starty,endx,endy));
   }
 
   setupData() {
@@ -56,6 +64,14 @@ export class SetupService {
   }
 
   finishPlacingLamp() {
+    this.cursor = "default"
+  }
+
+  startDrawingRoads() {
+    this.cursor = "road"    
+  }
+
+  finishDrawingRoads() {
     this.cursor = "default"
   }
 

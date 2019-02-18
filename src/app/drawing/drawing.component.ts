@@ -27,7 +27,7 @@ export class DrawingComponent implements OnInit {
 
   constructor(
     private drawingService: DrawingService,
-    private setupService: SetupService ) {
+    private setupService: SetupService) {
   }
 
   ngOnInit() {
@@ -39,13 +39,13 @@ export class DrawingComponent implements OnInit {
 
     $(() => {
       this.drawingService.modelObservable.subscribe(result => {
-        if(result) {
+        if (result) {
           this.model = result;
           this.draw();
         }
       });
       this.canvas.addEventListener("mousemove", (e) => {
-        if(!this.setupService.completed) {
+        if (!this.setupService.completed) {
           var rect = this.canvas.getBoundingClientRect(), scaleX = this.canvas.width / rect.width, scaleY = this.canvas.height / rect.height;
           this.mousex = (e.clientX - rect.left) * scaleX;
           this.mousey = (e.clientY - rect.top) * scaleY;
@@ -54,8 +54,25 @@ export class DrawingComponent implements OnInit {
       })
 
       this.canvas.addEventListener("mouseup", () => {
-        if(this.setupService.cursor === "lamp")
-          this.setupService.addLamp(this.mousex,this.mousey);
+        if (this.setupService.cursor === "lamp")
+          this.setupService.addLamp(this.mousex, this.mousey);        
+      })
+
+      this.canvas.addEventListener("mousedown", (e) => {
+        if (this.setupService.cursor === "road") {
+          if(!(this.setupService.roadStartX && this.setupService.roadStartY)) {
+            this.setupService.roadStartX = this.mousex;
+            this.setupService.roadStartY = this.mousey;
+          }
+          else {
+            if (Math.abs(this.setupService.roadStartX - this.mousex) > Math.abs(this.setupService.roadStartY - this.mousey))
+              this.setupService.addRoad(this.setupService.roadStartX,this.setupService.roadStartY, this.mousex, this.setupService.roadStartY)             
+            else
+              this.setupService.addRoad(this.setupService.roadStartX,this.setupService.roadStartY, this.setupService.roadStartX, this.mousey)
+            this.setupService.roadStartX = null;
+            this.setupService.roadStartY = null;
+          }
+        }
       })
     })
 
@@ -90,7 +107,7 @@ export class DrawingComponent implements OnInit {
     if (this.model) {
       this.model.roads.forEach((road: Road) => {
         this.drawLine(this.context, road.startX, road.startY, road.endX, road.endY);
-      })
+      })      
       this.model.objects.forEach((object: MovingObject) => {
         if (object.direction == Direction.Up || object.direction == Direction.Down) {
           this.drawRect(this.context, object.posX - 5, object.posY - 10, 10, 20, object.color);
@@ -103,10 +120,21 @@ export class DrawingComponent implements OnInit {
         this.drawRing(this.context, lamp.posX, lamp.posY, 10, lamp.conditionalPower * lamp.enabled);
       })
     }
-    if(!this.setupService.completed) {      
-      if(this.setupService.cursor === "lamp")
+    if (!this.setupService.completed) {
+      if (this.setupService.cursor === "lamp")
         this.drawRing(this.context, this.mousex - 5, this.mousey - 5, 10, this.setupService.selectedLamp.conditionalPower);
     }
+    if (!this.setupService.completed) {
+      if (this.setupService.cursor === "road") {
+        this.drawCircle(this.context, this.mousex - 2, this.mousey - 2, 4, '#000000');
+        if (this.setupService.roadStartX && this.setupService.roadStartY) {
+          if (Math.abs(this.setupService.roadStartX - this.mousex) > Math.abs(this.setupService.roadStartY - this.mousey))
+            this.drawLine(this.context, this.setupService.roadStartX, this.setupService.roadStartY, this.mousex, this.setupService.roadStartY);
+          else
+          this.drawLine(this.context, this.setupService.roadStartX, this.setupService.roadStartY, this.setupService.roadStartX, this.mousey);
+        }
+      }
+    }    
   }
 
   drawCircle(context: CanvasRenderingContext2D, posX: number, posY: number, radius: number, color: string = null) {
