@@ -83,9 +83,8 @@ export class SetupComponent implements OnInit {
     const file = e.srcElement.files[0];    
     const t = new Blob([file], { type: 'text/json;charset=utf-8' });
     const reader = new FileReader();
-    reader.onload = () => {
-        this.setupService.loadModel(reader.result);        
-    };
+    reader.onload = () => this.setupService.loadModel(reader.result);        
+    
     const text = reader.readAsText(file);    
   }
 
