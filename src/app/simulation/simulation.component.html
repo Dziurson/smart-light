@@ -10,35 +10,34 @@
     <div class="form-group col-6 pl-1">
       <div class="form-group">
         <label for="iteration-count">Ilość pozostałych iteracji</label>
-        <input type="number" id="iteration-count" class="form-control" [value]="(iterations - iteration) + 1" [disabled]="true">
+        <input type="number" id="iteration-count" class="form-control" [value]="(iterations - iteration) + 1"
+          [disabled]="true">
       </div>
     </div>
   </div>
-
-
   <div class="row">
     <div class="form-group col-6 pr-1">
       <label for="start_time">Czas rozpoczęcia</label>
-      <input type="text" class="form-control" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="start_time"
-        #start_time>
+      <input type="text" class="form-control" [ngModel]="startTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart"
+        id="start_time" #start_time>
     </div>
     <div class="form-group col-6 pl-1">
       <label for="end_time">Czas zakończenia</label>
-      <input type="text" class="form-control" [ngModel]="endTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart" id="end_time"
-        #end_time>
+      <input type="text" class="form-control" [ngModel]="endTime * 1000 | date:'H:mm:ss'" [disabled]="!firstStart"
+        id="end_time" #end_time>
     </div>
   </div>
   <div class="row">
-      <div class="form-group col-6 pr-1">
-        <label for="energy_price">Cena prądu [kWh]</label>
-        <input type="text" class="form-control" [(ngModel)]="kwhPrice" [disabled]="!firstStart" id="energy_price"
-          #energy_price>
-      </div>
-      <div class="form-group col-6 pl-1">
-        <label for="saved_money">Oszczędność [zł]</label>
-        <input type="number" class="form-control" [(ngModel)]="model.savedMoney" [disabled]="!firstStart" id="saved_money"
-          #saved_money>
-      </div>
+    <div class="form-group col-6 pr-1">
+      <label for="energy_price">Cena prądu [kWh]</label>
+      <input type="text" class="form-control" [(ngModel)]="kwhPrice" [disabled]="!firstStart" id="energy_price"
+        #energy_price>
+    </div>
+    <div class="form-group col-6 pl-1">
+      <label for="saved_money">Oszczędność [zł]</label>
+      <input type="number" class="form-control" [(ngModel)]="model.savedMoney" [disabled]="!firstStart" id="saved_money"
+        #saved_money>
+    </div>
   </div>
   <ng-container *ngIf="!simulationRun; else stopButton">
     <button type="button" class="btn btn-danger btn-block" (click)="runSimulation(start_time.value, end_time.value)">
@@ -52,58 +51,59 @@
   </ng-template>
   <div class="row mt-2">
     <div class="col first-button mr-1">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="addCar()" [disabled]="!simulationRun">
-            Dodaj samochód
-        </button>
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="addCar()" [disabled]="!simulationRun">
+        Dodaj samochód
+      </button>
     </div>
     <div class="col second-button ml-1">
-        <button type="button" class="btn btn-outline-primary btn-block" (click)="removeCar()" [disabled]="!simulationRun || carCounter < 1">
-            Usuń samochód
-        </button>
+      <button type="button" class="btn btn-outline-primary btn-block" (click)="removeCar()"
+        [disabled]="!simulationRun || carCounter < 1">
+        Usuń samochód
+      </button>
     </div>
   </div>
   <div class="slidecontainer mt-2">
-      <input type="range" min="1" max="{{simulationHistory.length}}" value="{{simulationHistory.length}}" class="slider" id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
+    <input type="range" min="1" max="{{simulationHistory.length}}" value="{{simulationHistory.length}}" class="slider"
+      id="myRange" [(ngModel)]="selectedTimestamp" (input)="loadHistoryState()" [disabled]="simulationRun">
   </div>
 
   <div class="mt-2">
     <p>Ilość wykonanych iteracji: {{iteration}}</p>
   </div>
   <table class="table mt-2">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Parametr</th>
-          <th scope="col">Wartość</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            Całkowite zużycie energii
-          </td>
-          <td>
-            {{model.totalEnergyNormalUsage | number: '.3' }} [kWh]
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Całkowite zużycie energii z wykorzystaniem inteligentnego oświetlenia
-          </td>
-          <td>
-            {{model.totalEnergyUsage | number: '.3' }} [kWh]
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Liczba samochodów
-          </td>
-          <td>
-            {{model.getCarCount()}}
-          </td>
-        <tr>
-        </tr>
-      </tbody>
-    </table>
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Parametr</th>
+        <th scope="col">Wartość</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Całkowite zużycie energii
+        </td>
+        <td>
+          {{model.totalEnergyNormalUsage | number: '.3' }} [kWh]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Całkowite zużycie energii z wykorzystaniem inteligentnego oświetlenia
+        </td>
+        <td>
+          {{model.totalEnergyUsage | number: '.3' }} [kWh]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Liczba samochodów
+        </td>
+        <td>
+          {{model.getCarCount()}}
+        </td>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
   <canvas id="chart" width="400" height="200"></canvas>
 </div>
-
