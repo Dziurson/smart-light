@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DrawingService } from '../services/drawing.service';
-import Lamp from '../model/lamp';
-import { PlaceType } from '../model/place-type';
 import MovingObject from '../model/moving-object';
 import { MovingObjectType } from '../model/moving-object-type';
 import SmartCityModel from '../model/smart-city-model';
-import Junction from '../model/junction';
-import { Direction } from '../model/direction';
-import { lamps } from '../modelData/lamps'
-import { movingObjects } from '../modelData/moving-objects'
-import Road from '../model/road';
 import SimulationState from '../model/simulation-state';
 import Chart from 'chart.js';
 import { SetupService } from '../services/setup.service';
@@ -22,7 +15,6 @@ import { SetupService } from '../services/setup.service';
 export class SimulationComponent implements OnInit {
 
   lampStats: any[];
-  private iteration = 0;
   iterations: number = 3600;
   timeInterval = 20;
   model: SmartCityModel;
@@ -34,11 +26,11 @@ export class SimulationComponent implements OnInit {
   endTime: number;
   carCounter: number;
   selectedTimestamp: number = 0;
-  simulationTimeStep = 1;  
+  simulationTimeStep = 1;
   stepWattNormalPower: number;
   stepWattPower: number;
   kwhPrice = 0.39975;
-  
+
 
   constructor(
     private drawingService: DrawingService,
@@ -50,17 +42,17 @@ export class SimulationComponent implements OnInit {
     // this.runSimulation(1000);
     this.startTime = (Date.now() / 1000);
     this.endTime = this.startTime + 3600;
-    this.carCounter = this.model.objects.length;   
+    this.carCounter = this.model.objects.length;
     this.setupChart();
   }
 
   private setupChart() {
-    var canvas = <HTMLCanvasElement>document.getElementById('chart');    
+    var canvas = <HTMLCanvasElement>document.getElementById('chart');
     var context = canvas.getContext('2d');
     context.imageSmoothingEnabled = false;
     var chart = new Chart(context, {
       "type": "line", "data": {
-      "labels": [],
+        "labels": [],
         "datasets": [{ "label": "Zaoszczędzona energia [%]", "data": [], "fill": false, "borderColor": "rgb(75, 192, 192)", "lineTension": 0.1 }]
       }, "options": {}
     });
@@ -113,8 +105,8 @@ export class SimulationComponent implements OnInit {
   calculateSimulationTime(start_time: string, end_time: string) {
     this.startTime = this.parseStartTime(start_time);
     this.endTime = this.parseStartTime(end_time);
-    if(this.endTime < this.startTime)
-      this.iterations = this.endTime + 60*60*24;
+    if (this.endTime < this.startTime)
+      this.iterations = this.endTime + 60 * 60 * 24;
     else
       this.iterations = Math.abs(this.endTime - this.startTime);
   }
@@ -142,7 +134,6 @@ export class SimulationComponent implements OnInit {
   }
 
   calculatePowerUsage() {
-    const timePassedInS = this.startTime - this.firstStartTime;
     this.model.lampList.forEach((item) => {
       this.stepWattNormalPower = ((item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
       this.stepWattPower = ((item.conditionalPower * item.wattPower) / (1000 * 3600)) * this.simulationTimeStep;
@@ -174,7 +165,7 @@ export class SimulationComponent implements OnInit {
 
   addCar() {
     const speed = Math.floor((Math.random() * 12) + 1);
-    const car = new MovingObject(this.carCounter, 1100, 150, speed, MovingObjectType.Car, "#"+((1<<24)*Math.random()|0).toString(16));
+    const car = new MovingObject(this.carCounter, 1100, 150, speed, MovingObjectType.Car, "#" + ((1 << 24) * Math.random() | 0).toString(16));
     this.model.objects.push(car);
     this.carCounter++;
   }

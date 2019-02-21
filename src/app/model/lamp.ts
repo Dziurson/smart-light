@@ -13,7 +13,7 @@ export default class Lamp {
   trafficSensor: TrafficSensor;
   wattPower = 100;
 
-  constructor(id, posX, posY, place) {
+  constructor(id: number, posX: number, posY: number, place: PlaceType) {
     this.id = id;
     this.posX = posX;
     this.posY = posY;
@@ -74,7 +74,7 @@ export default class Lamp {
     return this.enabled;
   }
 
-  setPosition(posX, posY) {
+  setPosition(posX: number, posY: number) {
     this.posX = posX
     this.posY = posY
     this.trafficSensor.posX = posX

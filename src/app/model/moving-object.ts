@@ -10,7 +10,7 @@ export default class MovingObject {
     direction: Direction;
     color: string;
 
-    constructor(id, posX, posY, velocity, type, color = '#FF0000', direction = Direction.Left) {
+    constructor(id: number, posX: number, posY: number, velocity: number, type: MovingObjectType, color: string = '#FF0000', direction: Direction = Direction.Left) {
         this.id = id;
         this.posX = posX;
         this.posY = posY;

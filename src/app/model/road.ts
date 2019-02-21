@@ -4,7 +4,7 @@ export default class Road {
     endX: number;
     endY: number;
 
-    constructor(startX, startY, endX, endY) {
+    constructor(startX: number, startY: number, endX: number, endY: number) {
         this.endX = endX;
         this.endY = endY;
         this.startX = startX;

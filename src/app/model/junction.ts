@@ -7,7 +7,7 @@ export default class Junction {
     posY: number;
     size: number = 10;
 
-    constructor(posX, posY, directions) {
+    constructor(posX: number, posY: number, directions: Direction[]) {
         this.posX = posX;
         this.posY = posY;
         this.directions = directions;
