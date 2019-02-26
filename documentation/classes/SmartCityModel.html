@@ -1,0 +1,880 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>smart-light documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	    <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">smart-light documentation</a>
+            <button type="button" class="btn btn-default btn-menu fa fa-bars" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+            <div id="book-search-input" role="search">
+                <input type="text" placeholder="Type to search">
+            </div>
+            <nav>
+            
+                <ul class="list">
+            
+                    <li class="title">
+                        <a href="../">smart-light documentation</a>
+                    </li>
+            
+                    <li class="divider"></li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../"><span class="fa fa-home"></span>Getting started</a>
+                        <ul class="links">
+                                <li class="link">
+                                    <a href="../" ><span class="fa fa-file-text-o"></span>README</a>
+                                </li>
+                                <li class="link">
+                                    <a 
+                                        
+                                         href="../overview.html" 
+                                         href="../overview.html" 
+                                        >
+                                        <span class="fa fa-th"></span>Overview
+                                    </a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="./modules.html" >
+                            <span class="fa fa-archive"></span>
+                            <span>Modules</span>
+                            <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                    data-target="#xs-modules-links"
+                            ></span>
+                        </a>
+                        <ul class="links collapse in"
+                                id="xs-modules-links"
+                            >
+                                <li class="link">
+                                    <a href="../modules/AppModule.html" >AppModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/AppRoutingModule.html" >AppRoutingModule</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple">
+                            <span class="fa fa-cogs"></span>
+                            <span>Components</span>
+                            <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                    data-target="#xs-components-links"
+                                ></span>
+                        </div>
+                        <ul class="links collapse in"
+                                id="xs-components-links"
+                            >
+                                <li class="link">
+                                    <a href="../components/AppComponent.html" >AppComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/DrawingComponent.html" >DrawingComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/SetupComponent.html" >SetupComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/SimulationComponent.html" >SimulationComponent</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <div class="simple">
+                            <span class="fa fa-file-code-o"></span>
+                            <span>Classes</span>
+                            <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                    data-target="#xs-classes-links"
+                                ></span>
+                        </div>
+                        <ul class="links collapse in"
+                                id="xs-classes-links"
+                            >
+                                <li class="link">
+                                    <a href="../classes/Junction.html" >Junction</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/Lamp.html" >Lamp</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/MovingObject.html" >MovingObject</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/Road.html" >Road</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/SimulationState.html" >SimulationState</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/SmartCityModel.html"  class="active" >SmartCityModel</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/TrafficSensor.html" >TrafficSensor</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../routes.html" ><span class="fa fa-code-fork"></span>Routes</a>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple">
+                            <span class="fa fa-long-arrow-down"></span>
+                            <span>Injectables</span>
+                            <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                    data-target="#xs-injectables-links"
+                                ></span>
+                        </div>
+                        <ul class="links collapse in"
+                                id="xs-injectables-links"
+                            >
+                                <li class="link">
+                                    <a href="../injectables/DrawingService.html" >DrawingService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/SetupService.html" >SetupService</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../miscellaneous.html" ><span class="fa fa-cubes"></span>Miscellaneous</a>
+                    </li>
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                    </li>
+            
+                    <li class="divider"></li>
+                    <li class="copyright">
+                            Documentation generated using <a href="https://compodoc.github.io/compodoc/" target="_blank">
+                                        <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                            </a>
+                    </li>
+            
+                </ul>
+            
+            </nav>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <nav>
+                   
+                       <ul class="list">
+                   
+                           <li class="title">
+                               <a href="../">smart-light documentation</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                   
+                               <div id="book-search-input" role="search">
+                                   <input type="text" placeholder="Type to search">
+                               </div>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../"><span class="fa fa-home"></span>Getting started</a>
+                               <ul class="links">
+                                       <li class="link">
+                                           <a href="../" ><span class="fa fa-file-text-o"></span>README</a>
+                                       </li>
+                                       <li class="link">
+                                           <a 
+                                               
+                                                href="../overview.html" 
+                                                href="../overview.html" 
+                                               >
+                                               <span class="fa fa-th"></span>Overview
+                                           </a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="./modules.html" >
+                                   <span class="fa fa-archive"></span>
+                                   <span>Modules</span>
+                                   <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                           data-target="#modules-links"
+                                   ></span>
+                               </a>
+                               <ul class="links collapse in"
+                                       id="modules-links"
+                   >
+                                       <li class="link">
+                                           <a href="../modules/AppModule.html" >AppModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/AppRoutingModule.html" >AppRoutingModule</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple">
+                                   <span class="fa fa-cogs"></span>
+                                   <span>Components</span>
+                                   <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                           data-target="#components-links"
+                   ></span>
+                               </div>
+                               <ul class="links collapse in"
+                                       id="components-links"
+                   >
+                                       <li class="link">
+                                           <a href="../components/AppComponent.html" >AppComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/DrawingComponent.html" >DrawingComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/SetupComponent.html" >SetupComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/SimulationComponent.html" >SimulationComponent</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <div class="simple">
+                                   <span class="fa fa-file-code-o"></span>
+                                   <span>Classes</span>
+                                   <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                           data-target="#classes-links"
+                   ></span>
+                               </div>
+                               <ul class="links collapse in"
+                                       id="classes-links"
+                   >
+                                       <li class="link">
+                                           <a href="../classes/Junction.html" >Junction</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/Lamp.html" >Lamp</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/MovingObject.html" >MovingObject</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/Road.html" >Road</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/SimulationState.html" >SimulationState</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/SmartCityModel.html"  class="active" >SmartCityModel</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/TrafficSensor.html" >TrafficSensor</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../routes.html" ><span class="fa fa-code-fork"></span>Routes</a>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple">
+                                   <span class="fa fa-long-arrow-down"></span>
+                                   <span>Injectables</span>
+                                   <span class="menu-toggler fa fa-angle-up" data-toggle="collapse"
+                                           data-target="#injectables-links"
+                   ></span>
+                               </div>
+                               <ul class="links collapse in"
+                                       id="injectables-links"
+                   >
+                                       <li class="link">
+                                           <a href="../injectables/DrawingService.html" >DrawingService</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/SetupService.html" >SetupService</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../miscellaneous.html" ><span class="fa fa-cubes"></span>Miscellaneous</a>
+                           </li>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                           <li class="copyright">
+                                   Documentation generated using <a href="https://compodoc.github.io/compodoc/" target="_blank">
+                                               <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                                   </a>
+                           </li>
+                   
+                       </ul>
+                   
+                   </nav>
+               </div>
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>SmartCityModel</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#infos" id="infos-tab" role="tab" data-toggle="tab">Infos</a>
+    </li>
+    <li>
+        <a href="#source" role="tab" id="source-tab" data-toggle="tab">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="infos">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/model/smart-city-model.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Klasa reprezentująca zrzut stanu symulacji (jedna iteracja symulacji).</p>
+
+            </p>
+
+            <section>
+                <h3 id="constructor">Constructor</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>constructor()</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Konstruktor klasy. Inicjalizuje listy obiektów w symulacji.</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+
+            <section>
+                <h3 id="methods">Methods</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b><span class="modifier">Static</span> from</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <span class="modifier-icon method fa fa-play export">
+                                            <span class="fa fa-export"></span>
+                                        </span>
+                                    <code>from(model: <a href="../classes/SmartCityModel.html" >SmartCityModel</a>)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Statyczna metoda tworząca kopię(nie referencję!) obiektu modelu.</p>
+            </div>
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <ul class="jsdoc-params">
+                                                        <li>
+                                                            <div>
+                                                                <b>model</b>
+                                                            </div>
+                                                            <div>
+                                                                <p>obiekt przeznaczony do kopiowania</p>
+            
+                                                            </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code><a href="../classes/SmartCityModel.html" target="_self" >SmartCityModel</a></code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                <p>nowy obiekt modelu</p>
+            
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> clone</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>clone()</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Metoda tworząca kopię (nie referencję!) instancji klasy.</p>
+            </div>
+                                        <div class="io-description">
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code><a href="../classes/SmartCityModel.html" target="_self" >SmartCityModel</a></code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                <p>nowy obiekt modelu</p>
+            
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> getCarCount</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>getCarCount()</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Metoda zwraca liczbe pojazdów w danym czasie symulacji.</p>
+            </div>
+                                        <div class="io-description">
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>number</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                <p>liczba pojazdów</p>
+            
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> junctions</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>junctions:     <code><a href="../classes/Junction.html" target="_self" >Junction[]</a></code>
+            </bcode>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>lista wszystkich skrzyżowań w symulacji</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> lampList</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>lampList:     <code><a href="../classes/Lamp.html" target="_self" >Lamp[]</a></code>
+            </bcode>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>lista wszystkich lamp w symulacji</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> objects</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>objects:     <code><a href="../classes/MovingObject.html" target="_self" >MovingObject[]</a></code>
+            </bcode>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>lista wszystkich obiektów dynamicznych w danym czasie symulacji</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> place</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>place:     <code>PlaceType</code>
+            </bcode>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>wybrany scenariusz symulacji</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> priceBuffor</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>priceBuffor:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Default value: </i><code>0</code>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>buffor cenowy, pozwalający np. na symulację kosztów instalacji systemu</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> roads</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>roads:     <code><a href="../classes/Road.html" target="_self" >Road[]</a></code>
+            </bcode>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>lista wszystkich ścieżek w symulacji</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> savedMoney</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>savedMoney:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Default value: </i><code>0</code>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>całkowita oszczędność pieniędzy w przypadku wykorzystania systemu inteligentnego oświetlenia</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> totalEnergyNormalUsage</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>totalEnergyNormalUsage:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Default value: </i><code>0</code>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>całkowite zużycie energii w sytuacji, gdy jest wykorzystany system inteligentnego oświetlenia</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> totalEnergyUsage</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>totalEnergyUsage:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <i>Default value: </i><code>0</code>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>całkowite zużycie energii w sytuacji, gdy nie jest wykorzystany system inteligentnego oświetlenia</p>
+            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+    <div class="tab-pane fade tab-source-code" id="source">
+        <pre><code class="hljs javascript">import { PlaceType } from &#x27;./place-type&#x27;;
+import Lamp from &#x27;./lamp&#x27;;
+import MovingObject from &#x27;./moving-object&#x27;;
+import Junction from &#x27;./junction&#x27;;
+import Road from &#x27;./road&#x27;;
+import { MovingObjectType } from &#x27;./moving-object-type&#x27;;
+
+/**
+ * Klasa reprezentująca zrzut stanu symulacji (jedna iteracja symulacji).
+ */
+export default class SmartCityModel {
+
+  /**
+   * Konstruktor klasy. Inicjalizuje listy obiektów w symulacji.
+   */
+  constructor() {
+      this.junctions &#x3D; [];
+      this.lampList &#x3D; [];
+      this.objects &#x3D; [];
+      this.roads &#x3D; [];
+      this.place &#x3D; PlaceType.NormalTraffic;
+  }
+  /**
+   * lista wszystkich lamp w symulacji
+   */
+  lampList: Lamp[];
+  /**
+   * lista wszystkich obiektów dynamicznych w danym czasie symulacji
+   */
+  objects: MovingObject[];
+  /**
+   * lista wszystkich skrzyżowań w symulacji
+   */
+  junctions: Junction[];
+  /**
+   * lista wszystkich ścieżek w symulacji
+   */
+  roads: Road[];
+  /**
+   * całkowite zużycie energii w sytuacji, gdy nie jest wykorzystany system inteligentnego oświetlenia
+   */
+  totalEnergyUsage &#x3D; 0;
+  /**
+   * całkowite zużycie energii w sytuacji, gdy jest wykorzystany system inteligentnego oświetlenia
+   */
+  totalEnergyNormalUsage &#x3D; 0;
+  /**
+   * całkowita oszczędność pieniędzy w przypadku wykorzystania systemu inteligentnego oświetlenia
+   */
+  savedMoney &#x3D; 0.0;
+  /**
+   * buffor cenowy, pozwalający np. na symulację kosztów instalacji systemu
+   */
+  priceBuffor &#x3D; 0.0;
+  /**
+   * wybrany scenariusz symulacji
+   */
+  place: PlaceType;
+
+   /**
+   * Statyczna metoda tworząca kopię(nie referencję!) obiektu modelu.
+   * @param model obiekt przeznaczony do kopiowania
+   * @returns nowy obiekt modelu
+   */
+  static from(model: SmartCityModel): SmartCityModel {
+      const result &#x3D; new SmartCityModel();
+      result.junctions &#x3D; model.junctions.map(junction &#x3D;&gt; Junction.from(junction));
+      result.lampList &#x3D; model.lampList.map(lamp &#x3D;&gt; Lamp.from(lamp));
+      result.objects &#x3D; model.objects.map(object &#x3D;&gt; MovingObject.from(object));
+      result.roads &#x3D; model.roads.map(road &#x3D;&gt; Road.from(road));
+      result.totalEnergyNormalUsage &#x3D; model.totalEnergyNormalUsage;
+      result.totalEnergyUsage &#x3D; model.totalEnergyUsage;
+      result.savedMoney &#x3D; model.savedMoney;
+      result.priceBuffor &#x3D; model.priceBuffor;
+      return result;
+  }
+
+  /**
+   * Metoda tworząca kopię (nie referencję!) instancji klasy.
+   * @returns nowy obiekt modelu
+   */
+  clone(): SmartCityModel {
+      const model &#x3D; new SmartCityModel();
+      model.junctions &#x3D; this.junctions.map(junction &#x3D;&gt; junction.clone());
+      model.lampList &#x3D; this.lampList.map(lamp &#x3D;&gt; lamp.clone());
+      model.objects &#x3D; this.objects.map(object &#x3D;&gt; object.clone());
+      model.roads &#x3D; this.roads.map(road &#x3D;&gt; road.clone());
+      model.totalEnergyNormalUsage &#x3D; this.totalEnergyNormalUsage;
+      model.totalEnergyUsage &#x3D; this.totalEnergyUsage;
+      model.savedMoney &#x3D; this.savedMoney;
+      model.priceBuffor &#x3D; this.priceBuffor;
+      return model;
+  }
+
+  /**
+   * Metoda zwraca liczbe pojazdów w danym czasie symulacji.
+   * @returns liczba pojazdów
+   */
+  getCarCount(): number {
+      return this.objects.filter(o &#x3D;&gt; o.type &#x3D;&#x3D;&#x3D; MovingObjectType.Car).length;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+           </div>
+       </div>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/search/search.js"></script>
+       <script src="../js/search/lunr.min.js"></script>
+       <script src="../js/search/search-lunr.js"></script>
+
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/highlight.pack.js"></script>
+       <script src="../js/libs/highlightjs-line-numbers.min.js"></script>
+       <script src="../js/search/search_index.js"></script>
+       <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                hljs.initHighlightingOnLoad();
+                hljs.initLineNumbersOnLoad();
+            });
+       </script>
+
+    </body>
+</html>

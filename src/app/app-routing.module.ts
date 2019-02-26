@@ -11,4 +11,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+/**
+ * Element odpowiedzialny za wywoływanie odpowiednich odpowiednich komponentów.
+ */
 export class AppRoutingModule { }
